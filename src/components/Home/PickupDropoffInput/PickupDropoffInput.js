@@ -15,14 +15,12 @@ class PickupDropoffInput extends Component {
     })
     .then(place => {
       if (isPickup) {
-        console.log("pickup", place);
         this.props.getInputLocation(true, place.name, place.location);
       } else {
-        console.log("dropoff", place);
         this.props.getInputLocation(false, place.name, place.location);
       }
     })
-    .catch(error => console.log(error.message));  // error is a Javascript Error object
+    .catch(error => console.error(error.message));  // error is a Javascript Error object
   }
 
   render() {

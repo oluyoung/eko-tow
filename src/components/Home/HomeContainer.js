@@ -4,11 +4,13 @@ import { connect } from 'react-redux';
 import CurrentLocationButton from './CurrentLocationButton/CurrentLocationButton';
 import MapContainer from './MapContainer/MapContainer';
 import PickupDropoffInput from './PickupDropoffInput/PickupDropoffInput';
+import FareDisplay from './FareDisplay/FareDisplay';
 import Aux from '../Aux';
 
 class HomeContainer extends Component {
 
   render() {
+    const renderFareDisplay = this.props.fare > 0 ? <FareDisplay fare={this.props.fare} /> : null;
     return (
       <Aux>
         <MapContainer
@@ -21,6 +23,7 @@ class HomeContainer extends Component {
           dropoffLocationName={this.props.dropoffLocation.name}
            />
         <CurrentLocationButton callback={this.centerToUserLocation} />
+        {renderFareDisplay}
       </Aux>
     );
   }
@@ -29,7 +32,8 @@ class HomeContainer extends Component {
 const mapStateToProps = state => {
   return {
     pickupLocation: state.map.pickupLocation,
-    dropoffLocation: state.map.dropoffLocation
+    dropoffLocation: state.map.dropoffLocation,
+    fare: state.map.pricing.fare
   };
 };
 

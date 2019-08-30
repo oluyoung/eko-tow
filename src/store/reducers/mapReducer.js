@@ -12,6 +12,19 @@ const initState = {
   },
   dropoffLocation: {
     ...deltas
+  },
+  routeInfo: {
+    duration: {
+      value: 0, // in sec
+      text: ''
+    },
+    distance: {
+      value: 0, // in m
+      text: ''
+    }
+  },
+  pricing: {
+    fare: 0.0
   }
 };
 

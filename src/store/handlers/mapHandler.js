@@ -45,9 +45,35 @@ const handleGetInputLocation = (state, action) => {
   });
 };
 
+const handleGetDistanceMatrix = (state, action) => {
+  return updateObject(state, {
+      routeInfo: {
+        duration: {
+          value: action.duration.value,
+          text: action.duration.text
+        },
+        distance: {
+          value: action.distance.value,
+          text: action.distance.text
+        }
+      }
+    }
+  );
+};
+
+const handleGetCalculatedFare = (state, action) => {
+  return updateObject(state, {
+    pricing: {
+      fare: action.fare
+    }
+  });
+};
+
 const ACTION_HANDLERS = {
   GET_CURRENT_LOCATION: handleGetCurrentLocation,
-  GET_INPUT_LOCATION: handleGetInputLocation
+  GET_INPUT_LOCATION: handleGetInputLocation,
+  GET_DISTANCE_MATRIX: handleGetDistanceMatrix,
+  GET_CALCULATED_FARE: handleGetCalculatedFare
 };
 
 export default ACTION_HANDLERS;

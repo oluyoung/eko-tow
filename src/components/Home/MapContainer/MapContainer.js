@@ -50,9 +50,6 @@ class MapContainer extends Component {
 
     const initialRegion = pickupRegionExists ? this.props.pickupRegion : this.state.initialRegion;
 
-    console.log('pickupRegionExists', pickupRegionExists)
-    console.log('dropoffRegionExists', dropoffRegionExists)
-
     return (
       <MapView
         initialRegion={initialRegion}

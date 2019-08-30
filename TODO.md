@@ -1,15 +1,18 @@
 Home screen
+ - allow selection of points on screens and get lat,lng
  - pickup point
-   - if location allowed then use as default point
+   - if location allowed then use as default point, else use last known successful pickup location
    - if location button clicked change pickup point to current location
- - destination point
- -
+ - dropoff point
+ - calculateFare
+
  - map view
    - google places search
 
 NAVIGATION
 Drawer nav
  - profile
+   - default dropoff addr
    - edit account
    - delete account
    - sign out
