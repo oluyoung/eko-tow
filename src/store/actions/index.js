@@ -1,4 +1,6 @@
 export {
   getCurrentLocation,
-  getInputLocation
-} from './mapCreator';
+  getInputLocation,
+  getCarType,
+  getTowTruckType
+} from './homeCreator';

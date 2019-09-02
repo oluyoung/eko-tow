@@ -1,4 +1,4 @@
-import ACTION_HANDLERS from '../handlers/mapHandler';
+import ACTION_HANDLERS from '../handlers/homeHandler';
 
 const deltas = {
   name: '',
@@ -6,7 +6,7 @@ const deltas = {
   longitudeDelta: 0.0
 };
 
-const initState = {
+export const initState = {
   pickupLocation: {
     ...deltas
   },
@@ -15,23 +15,23 @@ const initState = {
   },
   routeInfo: {
     duration: {
-      value: 0, // in sec
+      value: null, // in sec
       text: ''
     },
     distance: {
-      value: 0, // in m
+      value: null, // in m
       text: ''
     }
   },
-  pricing: {
-    fare: 0.0
-  }
+  carType: null,
+  towTruckType: null,
+  fare: 0.0
 };
 
-const mapReducer = (state = initState, action) => {
+const homeReducer = (state = initState, action) => {
   const handler = ACTION_HANDLERS[action.type];
 
   return handler ? handler(state, action) : state;
 };
 
-export default mapReducer;
+export default homeReducer;

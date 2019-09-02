@@ -20,7 +20,7 @@ class PickupDropoffInput extends Component {
         this.props.getInputLocation(false, place.name, place.location);
       }
     })
-    .catch(error => console.error(error.message));  // error is a Javascript Error object
+    .catch(error => console.log(error.message));  // error is a Javascript Error object
   }
 
   render() {

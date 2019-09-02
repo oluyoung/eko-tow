@@ -1,4 +1,5 @@
 import { updateObject } from '../utility';
+import { initState } from '../reducers/homeReducer';
 
 const handleGetCurrentLocation = (state, action) => {
   const location = {
@@ -34,7 +35,20 @@ const handleGetInputLocation = (state, action) => {
       pickupLocation: {
         ...state.pickupLocation,
         ...location
-      }
+      },
+      dropoffLocation: {
+        ...initState.dropoffLocation
+      },
+      routeInfo: {
+        duration: {
+          ...initState.routeInfo.duration
+        },
+        distance: {
+          ...initState.routeInfo.distance
+        }
+      },
+      // carType,
+      // towTruckType
     });
   }
   return updateObject(state, {
@@ -63,17 +77,50 @@ const handleGetDistanceMatrix = (state, action) => {
 
 const handleGetCalculatedFare = (state, action) => {
   return updateObject(state, {
-    pricing: {
-      fare: action.fare
-    }
+    fare: action.fare
   });
 };
+
+const handleGetCarType = (state, action) => {
+  return updateObject(state, {
+    carType: action.carType
+  });
+}
+
+const handleGetTowTruckType = (state, action) => {
+  return updateObject(state, {
+    towTruckType: action.towTruckType
+  });
+}
+
+const handleCancelRequest = (state, action) => {
+  return updateObject(state, {
+    ...initState,
+    pickupLocation: {
+      ...initState.pickupLocation
+    },
+    dropoffLocation: {
+      ...initState.dropoffLocation
+    },
+    routeInfo: {
+      duration: {
+        ...initState.routeInfo.duration
+      },
+      distance: {
+        ...initState.routeInfo.distance
+      }
+    }
+  });
+}
 
 const ACTION_HANDLERS = {
   GET_CURRENT_LOCATION: handleGetCurrentLocation,
   GET_INPUT_LOCATION: handleGetInputLocation,
   GET_DISTANCE_MATRIX: handleGetDistanceMatrix,
-  GET_CALCULATED_FARE: handleGetCalculatedFare
+  GET_CALCULATED_FARE: handleGetCalculatedFare,
+  GET_CAR_TYPE: handleGetCarType,
+  GET_TOW_TRUCK_TYPE: handleGetTowTruckType,
+  CANCEL_REQUEST: handleCancelRequest
 };
 
 export default ACTION_HANDLERS;
