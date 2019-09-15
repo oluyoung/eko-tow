@@ -2,5 +2,16 @@ export {
   getCurrentLocation,
   getInputLocation,
   getCarType,
-  getTowTruckType
+  getTowTruckType,
+  handleCancelRequest,
+  handleGetNearbyDrivers
 } from './homeCreator';
+
+export {
+  handleLogin,
+  handleSignup,
+  setEmail,
+  setPassword,
+  switchToSignup,
+  switchToLogin
+} from './authCreator';

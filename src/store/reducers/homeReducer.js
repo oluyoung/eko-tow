@@ -25,7 +25,8 @@ export const initState = {
   },
   carType: null,
   towTruckType: null,
-  fare: 0.0
+  fare: 0.0,
+  nearbyDrivers: []
 };
 
 const homeReducer = (state = initState, action) => {

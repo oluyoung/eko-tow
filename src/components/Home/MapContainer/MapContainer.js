@@ -5,7 +5,7 @@ import MapView from 'react-native-maps';
 import { View } from 'react-native';
 import styles from './styles';
 
-import { getCurrentLocation } from '../../../store/actions';
+import { getCurrentLocation, getNearbyDrivers } from '../../../store/actions';
 
 class MapContainer extends Component {
   state = {
@@ -60,6 +60,15 @@ class MapContainer extends Component {
         ref={(map) => {this.map = map}}
         style={styles.map}>
         {pickupMarker}
+        {
+          pickupRegionExists && this.props.nearbyDrivers.map(driverLocation => {
+            const coordinate = {
+              latitude: driverLocation.location.latitude,
+              longitude: driverLocation.location.longitude
+            };
+            return (<MapView.Marker coordinate={coordinate} pinColor='yellow' />);
+          })
+        }
         {dropoffMarker}
       </MapView>
     );
@@ -68,7 +77,8 @@ class MapContainer extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getCurrentLocation: () => dispatch(getCurrentLocation(true))
+    getCurrentLocation: () => dispatch(getCurrentLocation(true)),
+    getNearbyDrivers: () => dispatch(getNearbyDrivers())
   };
 };
 

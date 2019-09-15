@@ -1,12 +1,14 @@
 import Geolocation from 'react-native-geolocation-service';
-import axios from 'axios';
 import { Alert } from 'react-native';
 
 import * as actionType from './actions';
 import { calculateFare } from '../utility';
 
+import axios from 'axios';
+import axiosBackend from '../../axios-backend';
+
 const getCurrentLocation = (isPickup) => {
-  return (dispatch) => {
+  return (dispatch, store) => {
     Geolocation.getCurrentPosition(position => {
       dispatch({
         type: actionType.GET_CURRENT_LOCATION,
@@ -16,6 +18,10 @@ const getCurrentLocation = (isPickup) => {
           longitude: position.coords.longitude
         }
       });
+
+      if (isPickup) {
+        getNearbyDrivers(dispatch, store);
+      }
     }, error => {
       console.log("GET CURRENT LOCATION ERROR", error);
     },
@@ -36,6 +42,10 @@ const getInputLocation = (isPickup, name, lat, lng) => {
       latitude: lat,
       longitude: lng
     });
+
+    if (isPickup) {
+      getNearbyDrivers(dispatch, store);
+    }
     const hasPickupLocation = store().home.pickupLocation.latitude && store().home.pickupLocation.longitude
     const hasDropoffLocation = store().home.dropoffLocation.latitude && store().home.dropoffLocation.longitude
     if (hasPickupLocation && hasDropoffLocation) {
@@ -85,7 +95,7 @@ const getCarType = (carType) => {
   return {
     type: actionType.GET_CAR_TYPE,
     carType
-  }
+  };
 };
 
 const getTowTruckType = (towTruckType) => {
@@ -94,15 +104,30 @@ const getTowTruckType = (towTruckType) => {
       type: actionType.GET_TOW_TRUCK_TYPE,
       towTruckType
     });
-
     setTimeout(() => _dispatchFare(dispatch, store), 1000);
-  }
+  };
 };
 
 // get nearby drivers: from once pickup location has been entered
-// make request to drivers
-// cancel request
+const getNearbyDrivers = (dispatch, store) => {
+  const requestObj = {
+    params: {
+      latitude: store().home.pickupLocation.latitude,
+      longitude: store().home.pickupLocation.latitude
+    }
+  };
+  axiosBackend.get('/driversLocations', requestObj)
+    .then(response => {
+      console.log("response", response.data);
+      dispatch({
+        type: actionType.GET_NEARBY_DRIVERS,
+        nearbyDrivers: response.data.driversLocations
+      });
+    })
+    .catch(err => console.log("error", err) );
+};
 
+// make request to drivers
 const makeCancelRequest = () => {
   return dispatch({
     type: CANCEL_REQUEST
@@ -127,5 +152,6 @@ export {
   getCurrentLocation,
   getInputLocation,
   getCarType,
-  getTowTruckType
+  getTowTruckType,
+  makeCancelRequest
 };

@@ -28,6 +28,7 @@ class HomeContainer extends Component {
         <MapContainer
           pickupRegion={this.props.pickupLocation}
           dropoffRegion={this.props.dropoffLocation}
+          nearbyDrivers={this.props.nearbyDrivers}
           />
         <PickupDropoffInput
           getCurrentLocation={this.props.getCurrentLocation}
@@ -48,7 +49,8 @@ const mapStateToProps = state => {
     routeInfo: state.home.routeInfo,
     fare: state.home.fare,
     carType: state.home.carType,
-    towTruckType: state.home.towTruckType
+    towTruckType: state.home.towTruckType,
+    nearbyDrivers: state.home.nearbyDrivers
   };
 };
 

@@ -5,19 +5,19 @@ import { TouchableOpacity, ScrollView, View, Image, Text } from 'react-native';
 import { getCarType, getTowTruckType } from '../../../store/actions';
 
 import styles from './styles';
-import * as vehicles from './vehicles';
+import { cars, towTrucks } from './vehicles';
 
 const carList = [
-  {uri: '../../../assets/sedan.png', type: vehicles.cars.SEDAN},
-  {uri: '../../../assets/sedan.png', type: vehicles.cars.SALOON},
-  {uri: '../../../assets/sedan.png', type: vehicles.cars.SUV},
-  {uri: '../../../assets/sedan.png', type: vehicles.cars.SUV_4WD},
-  {uri: '../../../assets/sedan.png', type: vehicles.cars.XL}
+  {uri: '../../../assets/sedan.png', type: cars.SEDAN},
+  {uri: '../../../assets/sedan.png', type: cars.SALOON},
+  {uri: '../../../assets/sedan.png', type: cars.SUV},
+  {uri: '../../../assets/sedan.png', type: cars.SUV_4WD},
+  {uri: '../../../assets/sedan.png', type: cars.XL}
 ];
 
 const towTruckList = [
-  {uri: '../../../assets/sedan.png', type: vehicles.towTrucks.FLATBED},
-  {uri: '../../../assets/sedan.png', type: vehicles.towTrucks.DRAG}
+  {uri: '../../../assets/sedan.png', type: towTrucks.FLATBED},
+  {uri: '../../../assets/sedan.png', type: towTrucks.DRAG}
 ];
 
 class VehicleTypesDisplay extends Component {

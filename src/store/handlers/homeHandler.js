@@ -113,6 +113,12 @@ const handleCancelRequest = (state, action) => {
   });
 }
 
+const handleGetNearbyDrivers = (state, action) => {
+  return updateObject(state, {
+    nearbyDrivers: action.nearbyDrivers
+  });
+}
+
 const ACTION_HANDLERS = {
   GET_CURRENT_LOCATION: handleGetCurrentLocation,
   GET_INPUT_LOCATION: handleGetInputLocation,
@@ -120,7 +126,8 @@ const ACTION_HANDLERS = {
   GET_CALCULATED_FARE: handleGetCalculatedFare,
   GET_CAR_TYPE: handleGetCarType,
   GET_TOW_TRUCK_TYPE: handleGetTowTruckType,
-  CANCEL_REQUEST: handleCancelRequest
+  CANCEL_REQUEST: handleCancelRequest,
+  GET_NEARBY_DRIVERS: handleGetNearbyDrivers
 };
 
 export default ACTION_HANDLERS;
