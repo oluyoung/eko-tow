@@ -12,7 +12,7 @@ const getMongoUrl = (user, password, dbName, host) => {
     if (user && password && dbName && host) {
         return `mongodb+srv://${user}:${password}@${host}/${dbName}?retryWrites=true&w=majority`
     } else {
-        return 'mongodb://localhost/ocean'
+        return 'mongodb://localhost/test'
     }
 }
 
@@ -34,12 +34,16 @@ const connectMongoose = (() => {
                     try {
                         mongoose.connect( url, {
                           useCreateIndex: true,
-                          useNewUrlParser: true
+                          useNewUrlParser: true,
+                          useUnifiedTopology: true
+                        }).catch(e => {
+                          console.log('connection error: ', e);
+                          reject();
                         });
 
                         const db = mongoose.connection;
                         db.on('error', (e) => {
-                            console.error.bind(console, 'connection error: ', e);
+                            console.log('connection error: ', e);
                             isConnected = false;
                             reject();
                         });
@@ -49,7 +53,7 @@ const connectMongoose = (() => {
                             resolve();
                         });
                     } catch(e) {
-                        console.error.bind(console, e);
+                        console.log(e);
                         reject()
                     }
                 } else {

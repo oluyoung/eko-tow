@@ -6,7 +6,11 @@ const driversLocationSchema = new mongoose.Schema({
     type: ObjectId,
     required: true
   },
-  coordinate: [Number],
+  coordinate: {
+    type: [Number],
+    index: '2dsphere',
+    required: true
+  },
   socketId: {
     type: String,
     required: true

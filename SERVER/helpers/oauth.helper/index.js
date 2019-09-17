@@ -27,7 +27,6 @@ const generate = ({ data = {}, issuer, expiry, subject, secret }) => {
   if (issuer) options.issuer = issuer;
   if (expiry) options.expiresIn = expiry;
   if (subject) options.subject = subject;
-  // var token = jwt.sign(this._id.toHexString(), config.SECRET);
 
   return jwt.sign({ ...data, iat: Math.floor(Date.now() / 1000) }, secret, options);
 };

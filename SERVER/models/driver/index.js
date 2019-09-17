@@ -1,13 +1,24 @@
 const mongoose = require('mongoose');
-const Driver = require('../driver');
-const ObjectId = mongoose.Schema.Types.ObjectId;
 
-const driversLocationSchema = new mongoose.Schema({
+const { hashPassword } = require('../utils');
+const instanceMethods = require('../instance-methods');
+
+const driverSchema = new mongoose.Schema({
   firstName: {
     type: String,
     required: true
   },
   lastName: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    lowercase: true
+  },
+  password: {
     type: String,
     required: true
   },
@@ -62,7 +73,7 @@ const driversLocationSchema = new mongoose.Schema({
       required: true
     },
     type: {
-      type: String,
+      type: String, // flatbed / drag
       required: true
     },
     isPrimary: Boolean
@@ -79,4 +90,23 @@ const driversLocationSchema = new mongoose.Schema({
   toJSON: { virtuals: true }
 });
 
-module.exports = mongoose.model('DriversLocation', driversLocationSchema);
+driverSchema.method({
+  ...instanceMethods
+});
+
+driverSchema.pre('save', async function() {
+  if ( this.password && this.isModified('password') ) {
+    this.password = await hashPassword(this.password);
+  }
+});
+
+//Virtuals
+driverSchema.virtual('full_name').get(function () {
+  return `${this.firstName} ${this.lastName}`;
+});
+
+driverSchema.virtual('name').get(function () {
+  return this.firstName;
+});
+
+module.exports = mongoose.model('Driver', driverSchema);

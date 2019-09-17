@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset=utf-8>
+  <title>Index</title>
+  <style media="screen">
+    body {
+      font-family: 'sans-serif', arial;
+      line-height: 1.2;
+    }
+    div {
+      margin: 10px auto;
+      max-width: 500px;
+      box-shadow: 1px 1px 3px #fafafa;
+      border-radius: 5px;
+      padding: 1em;
+    }
+    input, select {
+      border-radius: 5px;
+      padding: 5px;
+      font-size: 1.2em;
+      display: block;
+      margin-bottom: 1em;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+<div class="">
+  <form id="driver-form" method="post">
+    <select class="" name="driver-status">
+      <option value="confirmed">Confirmed</option>
+      <option value="cancel">Cancel</option>
+    </select>
+    <input type="button" name="submit" value="Confirm Booking">
+  </form>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.slim.js" integrity="sha256-RtMTraB5gGlLER0FkKBcaXCmZCQCxkKS/dXm7MSEoEY=" crossorigin="anonymous">
+</script>
+<script>
+  const socket = io('/');
+
+  socket.on('connect', () => {
+    const driverId = '5d81557f9b50eb0ad248b007';
+    const driversCurrentData = {
+      'socketId': socket.id,
+      'locationId': '5d7d82d0127604647eafb25d',
+      'longitude': '3.393835',
+      'latitude': '6.543641'
+    };
+
+    $.ajax({
+      type: 'PUT',
+      url: '/api/v1/driversLocations/' + driverId,
+      dataType: 'json',
+      data: driversCurrentData
+    }).done(function (response) {
+      console.log(response)
+    })
+  });
+</script>
+
+</body>
+</html>

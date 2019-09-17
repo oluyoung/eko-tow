@@ -5,5 +5,6 @@ const userController = require('../../../controllers/users.controller').controll
 const userControllerObj = new userController();
 
 router.get('/', userControllerObj.getMe);
+router.put('/', userControllerObj.updateMe);
 
 module.exports = router;

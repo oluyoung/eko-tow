@@ -1,40 +1,21 @@
-const User = require('../../models/user');
-const { verifyPassword } = require('../../models/user/utils')
-
+const { buildQuery, throwNoEmailOrPasswordError } = require('../_helpers');
+const { verifyPassword } = require('../../models/utils')
+const oauthHelper = require('../oauth.helper');
 const Errors = require('../../utils/errors').Errors;
 const errorObj = new Errors();
 
-const oauthHelper = require('../oauth.helper');
-
-const { buildQuery } = require('../_helpers');
-
-const DEFAULT_FIELDS = '_id firstName lastName profilePhoto receive_email_notifications email created_at updated_at';
-
-function throwError(email, password) {
-  if (!email) {
-    throw errorObj.UnprocessableEntity('Email missing');
-  }
-
-  if (!password) {
-    throw errorObj.UnprocessableEntity('Password missing');
-  }
-}
-
-const createUserAsync = async function(data = {}, options = {}) {
-    const { email, firstName, lastName, password, dob } = data;
-
-    throwError(email, password);
-
-    const newUser = new User({ email, firstName, lastName, password, dob });
-
+const createUserAsync = async (data = {}, model) => {
+    const Model = model;
+    throwNoEmailOrPasswordError(data.email, data.password);
+    const newUser = new Model({...data});
     return await newUser.save();
 }
 
-const loginUserAsync = async (data = {}, options = {}) => {
-  const { email, password } = data;
-  throwError(email, password);
-
-  const user = await User.findOne({email}, 'created_at email firstName lastName password profilePhoto');
+const loginUserAsync = async (data = {}, model) => {
+  const Model = model;
+  throwNoEmailOrPasswordError(data.email, data.password);
+  const fieldStr = 'created_at email firstName lastName password profilePhoto';
+  const user = await Model.findOne({email}, fieldStr);
   if (!user) {
     throw errorObj.NotFound('Invalid email or password');
   }
@@ -48,17 +29,36 @@ const loginUserAsync = async (data = {}, options = {}) => {
 };
 
 // †
-const getUserAsync = (query, options = {}) => new Promise((resolve, reject) => {
+const getUserAsync = (query, options = {}, defaultFields, model) => new Promise((resolve, reject) => {
+  const Model = model;
   if (!query || typeof query !== 'object') {
     throw errorObj.UnprocessableEntity('Invalid query');
   }
 
-  options.select = DEFAULT_FIELDS;
+  options.select = defaultFields;
 
-  let userQuery = User.findOne(query);
-
+  let userQuery = Model.findOne(query);
   userQuery = buildQuery(userQuery, options);
+  userQuery.exec((err, user) => {
+    if (err) {
+      console.error(err);
+      return reject(errorObj.UnprocessableEntity(err.message));
+    }
 
+    resolve(user);
+  });
+});
+
+const updateUserAsync = (query, options = {}, model) => new Promise((resolve, reject) => {
+  const Model = model;
+  if (!query || typeof query !== 'object') {
+    throw errorObj.UnprocessableEntity('Invalid query');
+  }
+
+  options.select = defaultFields;
+
+  let userQuery = Model.findByIdAndUpdate(query);
+  userQuery = buildQuery(userQuery, options);
   userQuery.exec((err, user) => {
     if (err) {
       console.error(err);
@@ -71,7 +71,7 @@ const getUserAsync = (query, options = {}) => new Promise((resolve, reject) => {
 
 module.exports = {
   createUserAsync,
-  DEFAULT_FIELDS,
   loginUserAsync,
-  getUserAsync
+  getUserAsync,
+  updateUserAsync
 };

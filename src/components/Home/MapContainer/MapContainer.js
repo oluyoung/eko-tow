@@ -10,8 +10,8 @@ import { getCurrentLocation, getNearbyDrivers } from '../../../store/actions';
 class MapContainer extends Component {
   state = {
     initialRegion: {
-      longitude: 3.3993191,
-      latitude: 6.542457199999999,
+      latitude: 6.543844,
+      longitude: 3.392540,
       latitudeDelta: 0.0,
       longitudeDelta: 0.0
     }
@@ -61,12 +61,12 @@ class MapContainer extends Component {
         style={styles.map}>
         {pickupMarker}
         {
-          pickupRegionExists && this.props.nearbyDrivers.map(driverLocation => {
+          pickupRegionExists && this.props.nearbyDrivers.map((driverLocation, idx) => {
             const coordinate = {
-              latitude: driverLocation.location.latitude,
-              longitude: driverLocation.location.longitude
+              latitude: driverLocation.coordinate[1],
+              longitude: driverLocation.coordinate[0]
             };
-            return (<MapView.Marker coordinate={coordinate} pinColor='yellow' />);
+            return (<MapView.Marker key={idx} coordinate={coordinate} pinColor='yellow' />);
           })
         }
         {dropoffMarker}

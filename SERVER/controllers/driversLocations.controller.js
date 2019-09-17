@@ -6,22 +6,22 @@ function DriversLocationsController() {}
 
 DriversLocationsController.prototype.getNearbyDriversLocations = async (req, res, next) => {
   try {
-    // DriversLocation.ensureIndex({'coordinate', '2dsphere'});
-    // const driversLocations = await DriversLocation.find({
-    //   'coordinate': {
-    //     '$near': {
-    //       '$geometry': {
-    //         'type': 'Point',
-    //         'coordinates': [parseFloat(req.body.longitude), parseFloat(req.body.latitude)]
-    //       },
-    //       '$maxDistance': 10000
-    //     }
-    //   }
-    // });
+    const points = [parseFloat(req.query.longitude), parseFloat(req.query.latitude)];
 
-    const driversLocations = await DriversLocation.find();
-    console.log('----\n', driversLocations)
-    if (!driversLocations || driversLocations.length > 0) {
+    DriversLocation.createIndexes({point: 'coordinate'});
+    const driversLocations = await DriversLocation.find({
+      coordinate: {
+        $near: {
+          $geometry: {
+            type: 'Point',
+            coordinates: points
+          },
+          $maxDistance: 1000
+          }
+        }
+      });
+
+    if (!driversLocations) {
       return res.status(404).json({
         error: true,
         message: 'No locations found'
@@ -48,13 +48,12 @@ DriversLocationsController.prototype.createDriversLocationObj = async (req, res,
       socketId: req.body.socketId
     };
     const newDriversLocation = await DriversLocation.create(query);
-    console.log("-----\n", newDriversLocation)
     if (!newDriversLocation) {
       return res.status(500);
     }
 
     return res.status(200).json({
-      driverLocation: newDriversLocation
+      driversLocation: newDriversLocation
     });
   } catch (error) {
     next(error);
@@ -64,28 +63,26 @@ DriversLocationsController.prototype.createDriversLocationObj = async (req, res,
 DriversLocationsController.prototype.updateDriversLocation = async (req, res, next) => {
   try {
     const query = {
-      driverId: req.params.driverId,
-      socketId: req.body.socketId
+      _id: req.body.locationId,
+      driverId: req.params.driverId
     };
     const updateObj = {
-      driverId: req.params.driverId,
-      coordinate: {
-        type: "Point",
-        coordinates: {
-          latitude: req.body.latitude,
-          longitude: req.body.longitude
-        }
-      },
+      coordinate: [
+        req.body.longitude,
+        req.body.latitude
+      ],
       socketId: req.body.socketId
     };
-    const options = {new: true};
-    const newDriversLocations = await DriversLocation.findOneAndUpdate(query, updateObj, options);
+    const options = {new: true, upsert: true, setDefaultsOnInsert: true};
+    const newDriversLocation = await DriversLocation.findOneAndUpdate(query, updateObj, options);
 
     if (!newDriversLocation) {
       return res.status(500);
     }
 
-    return res.status(200);
+    return res.status(200).json({
+      driversLocation: newDriversLocation
+    });
   } catch (error) {
     next(error);
   }
@@ -93,7 +90,10 @@ DriversLocationsController.prototype.updateDriversLocation = async (req, res, ne
 
 DriversLocationsController.prototype.getDriversLocation = async (req, res, next) => {
   try {
-    const driversLocation = await DriversLocation.findOne(req.params.driverId);
+    const query = {
+      driverId: req.params.driverId
+    };
+    const driversLocation = await DriversLocation.findOne(query);
     if (!driversLocation) {
       return res.status(404);
     }

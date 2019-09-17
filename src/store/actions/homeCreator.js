@@ -110,15 +110,10 @@ const getTowTruckType = (towTruckType) => {
 
 // get nearby drivers: from once pickup location has been entered
 const getNearbyDrivers = (dispatch, store) => {
-  const requestObj = {
-    params: {
-      latitude: store().home.pickupLocation.latitude,
-      longitude: store().home.pickupLocation.latitude
-    }
-  };
-  axiosBackend.get('/driversLocations', requestObj)
+  const lat = store().home.pickupLocation.latitude;
+  const lng = store().home.pickupLocation.longitude;
+  axiosBackend.get(`/driversLocations?latitude=${lat}&longitude=${lng}`)
     .then(response => {
-      console.log("response", response.data);
       dispatch({
         type: actionType.GET_NEARBY_DRIVERS,
         nearbyDrivers: response.data.driversLocations

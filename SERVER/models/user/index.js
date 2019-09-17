@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
 
-const { hashPassword } = require('./utils');
-
-const instanceMethods = require('./instance-methods');
+const { hashPassword } = require('../utils');
+const instanceMethods = require('../instance-methods');
 
 const userSchema = new mongoose.Schema({
   email: {
