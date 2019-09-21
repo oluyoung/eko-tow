@@ -4,7 +4,9 @@ export {
   getCarType,
   getTowTruckType,
   handleCancelRequest,
-  handleGetNearbyDrivers
+  handleGetNearbyDrivers,
+  requestDrivers,
+  setAcceptedDriver
 } from './homeCreator';
 
 export {
@@ -15,3 +17,7 @@ export {
   switchToSignup,
   switchToLogin
 } from './authCreator';
+
+export {
+  createTowBooking
+} from './towBookingsCreator';

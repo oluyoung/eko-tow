@@ -7,6 +7,7 @@
     body {
       font-family: 'sans-serif', arial;
       line-height: 1.2;
+      background-color: #111;
     }
     div {
       margin: 10px auto;
@@ -15,7 +16,7 @@
       border-radius: 5px;
       padding: 1em;
     }
-    input, select {
+    button, select {
       border-radius: 5px;
       padding: 5px;
       font-size: 1.2em;
@@ -28,13 +29,14 @@
 <body>
 
 <div class="">
-  <form id="driver-form" method="post">
-    <select class="" name="driver-status">
-      <option value="confirmed">Confirmed</option>
-      <option value="cancel">Cancel</option>
-    </select>
-    <input type="button" name="submit" value="Confirm Booking">
-  </form>
+  <select id="status">
+    <option value="">Select Action</option>
+    <option value="accept">Accept</option>
+    <option value="start">Start</option>
+    <option value="complete">End</option>
+    <option value="cancel">Cancel</option>
+  </select>
+  <button type="button" id="submit">Confirm Booking</button>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous">
@@ -45,10 +47,9 @@
   const socket = io('/');
 
   socket.on('connect', () => {
-    const driverId = '5d81557f9b50eb0ad248b007';
-    const driversCurrentData = {
+    const driverId = '5d8168413debcf0b68d1e800';
+    let driversCurrentData = {
       'socketId': socket.id,
-      'locationId': '5d7d82d0127604647eafb25d',
       'longitude': '3.393835',
       'latitude': '6.543641'
     };
@@ -60,8 +61,41 @@
       data: driversCurrentData
     }).done(function (response) {
       console.log(response)
-    })
+    });
+
+    const driverRequest = driverId + 'towRequest';
+    // if you become a nearby driver you get inserted into the queue right and so your socket.id is used in the request
+    socket.on(driverRequest, (data) => {
+      if (data.towBooking) {
+        console.log('User looking for a tow', data.booking);
+      }
+      if (data.accepted) {
+        socket.disconnect();
+      }
+    });
+
+    // if driver accepts
+    $('#submit').on('click', function(e) {
+      e.preventDefault();
+      switch ($('#status').val()) {
+        case 'accept':
+          socket.emit(driverRequest, {
+            accepted: true
+          });
+          break;
+        case 'start':
+        break;
+        default:
+        return;
+      }
+    });
   });
+
+  socket.on('disconnect', () => {
+    socket.open();
+  });
+
+
 </script>
 
 </body>

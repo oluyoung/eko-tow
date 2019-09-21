@@ -1,15 +1,12 @@
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
-const towSchema = new mongoose.Schema({
-  userId: {
-    type: ObjectId,
+const towBookingSchema = new mongoose.Schema({
+  email: {
+    type: String,
     required: true
   },
-  driverId: {
-    type: ObjectId,
-    required: true
-  },
+  driverId: ObjectId,
   pickupLocation: {
     name: String,
     address: String,
@@ -37,6 +34,10 @@ const towSchema = new mongoose.Schema({
   fare: {
     type: Number,
     required: true
+  },
+  status: {
+    type: String,
+    default: 'PENDING'
   }
 },
 {
@@ -45,4 +46,4 @@ const towSchema = new mongoose.Schema({
   toJSON: { virtuals: true }
 });
 
-module.exports = mongoose.model('Tow', towSchema);
+module.exports = mongoose.model('Tow', towBookingSchema);

@@ -14,6 +14,10 @@ const styles = {
   text: {
     fontSize: 14,
     color: '#ffffff'
+  },
+  button: {
+    fontSize: 14,
+    color: '#ffffff'
   }
 };
 

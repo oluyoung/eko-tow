@@ -73,6 +73,10 @@ const connectors = require('./connectors');
     app.listen(port, () => console.log(`Server listening on port ${port}!`))
   );
 
+  app.io = io.on('connection', (socket) => {
+    console.log('Socket connected' + socket.id);
+  });
+
   } catch (error) {
     console.log('Server Init Error---\n', error);
   }

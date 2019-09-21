@@ -39,6 +39,7 @@ DriversLocationsController.prototype.getNearbyDriversLocations = async (req, res
 
 DriversLocationsController.prototype.createDriversLocationObj = async (req, res, next) => {
   try {
+    // might have to use req.query
     const query = {
       driverId: req.params.driverId,
       coordinate: [
@@ -47,6 +48,12 @@ DriversLocationsController.prototype.createDriversLocationObj = async (req, res,
       ],
       socketId: req.body.socketId
     };
+    if (!query.driverId) {
+      return next(errorObj.UnprocessableEntity('Driver\'s ID is missing'));
+    }
+    if (query.coordinate.length < 2) {
+      return next(errorObj.UnprocessableEntity('Latitude or longitude is missing'));
+    }
     const newDriversLocation = await DriversLocation.create(query);
     if (!newDriversLocation) {
       return res.status(500);
@@ -63,7 +70,6 @@ DriversLocationsController.prototype.createDriversLocationObj = async (req, res,
 DriversLocationsController.prototype.updateDriversLocation = async (req, res, next) => {
   try {
     const query = {
-      _id: req.body.locationId,
       driverId: req.params.driverId
     };
     const updateObj = {

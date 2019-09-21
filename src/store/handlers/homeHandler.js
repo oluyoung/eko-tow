@@ -119,6 +119,13 @@ const handleGetNearbyDrivers = (state, action) => {
   });
 }
 
+const handleSetAcceptedDriver = (state, action) => {
+  return updateObject(state, {
+    ...state,
+    acceptedDriver: action.acceptedDriver
+  });
+}
+
 const ACTION_HANDLERS = {
   GET_CURRENT_LOCATION: handleGetCurrentLocation,
   GET_INPUT_LOCATION: handleGetInputLocation,
@@ -127,7 +134,8 @@ const ACTION_HANDLERS = {
   GET_CAR_TYPE: handleGetCarType,
   GET_TOW_TRUCK_TYPE: handleGetTowTruckType,
   CANCEL_REQUEST: handleCancelRequest,
-  GET_NEARBY_DRIVERS: handleGetNearbyDrivers
+  GET_NEARBY_DRIVERS: handleGetNearbyDrivers,
+  SET_ACCEPTED_DRIVER: handleSetAcceptedDriver
 };
 
 export default ACTION_HANDLERS;

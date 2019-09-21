@@ -8,6 +8,8 @@ import FareDisplay from './FareDisplay/FareDisplay';
 import VehicleTypesDisplay from './VehicleTypesDisplay/VehicleTypesDisplay';
 import Aux from '../Aux';
 
+import { requestDrivers } from '../../store/actions';
+
 class HomeContainer extends Component {
 
   render() {
@@ -21,7 +23,9 @@ class HomeContainer extends Component {
     }
 
     // what to do after fare has been displayed
-    const renderFooterDisplay = this.props.fare > 0 ? <FareDisplay fare={this.props.fare} /> : renderVehicleTypesDisplay;
+    const renderFooterDisplay = this.props.fare > 0 ?
+      <FareDisplay fare={this.props.fare} reqTowPress={() => this.props.requestDrivers()} /> :
+        renderVehicleTypesDisplay;
 
     return (
       <Aux>
@@ -54,4 +58,10 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(HomeContainer);
+const mapDispatchToProps = dispatch => {
+  return {
+    requestDrivers: () => dispatch(requestDrivers())
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer);

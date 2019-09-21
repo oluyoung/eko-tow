@@ -3,6 +3,7 @@ import { Alert } from 'react-native';
 
 import * as actionType from './actions';
 import { calculateFare } from '../utility';
+import { createTowBooking } from './towBookingsCreator';
 
 import axios from 'axios';
 import axiosBackend from '../../axios-backend';
@@ -122,6 +123,40 @@ const getNearbyDrivers = (dispatch, store) => {
     .catch(err => console.log("error", err) );
 };
 
+const requestDrivers = () => {
+  return (dispatch, store) => {
+    const data = {
+      nearbyDrivers: store().home.nearbyDrivers
+    };
+
+    axiosBackend.post('/towBookings/requestDrivers', data)
+      .then(res => {
+        if (res.data.success) {
+          console.log('--res', res);
+          // listen to socket and if data: setAcceptedDriver
+          // for (nearbyDriverObj in data.nearbyDrivers) {
+          //   const nearbyDriverRequest = nearbyDriverObj.driverId + 'acceptedTowRequest';
+          //   socket.on(nearbyDriverRequest, (data) => {
+          //     if (data.hasAccepted) {
+          //       setAcceptedDriver(dispatch, store, data.driver);
+          //       socket.disconnect();
+          //     }
+          //   });
+          // }
+        }
+      })
+      .catch(error => console.log("towBookings ERROR", error));
+  };
+};
+
+const setAcceptedDriver = (dispatch, store, driver) => {
+  dispatch({
+    type: actionType.SET_ACCEPTED_DRIVER,
+    acceptedDriver: driver
+  });
+  requestDrivers
+};
+
 // make request to drivers
 const makeCancelRequest = () => {
   return dispatch({
@@ -148,5 +183,7 @@ export {
   getInputLocation,
   getCarType,
   getTowTruckType,
-  makeCancelRequest
+  makeCancelRequest,
+  requestDrivers,
+  setAcceptedDriver
 };
