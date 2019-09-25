@@ -4,16 +4,12 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
-import createSocketIoMiddleware from 'redux-socket.io';
-import io from 'socket.io-client';
 
 import AppNavigator from './src/navigation/AppNavigator';
 import rootReducer from './src/store/rootReducer';
 
-const socket = io('http://localhost:5000', {jsonp: false});
-const socketIoMiddleware = createSocketIoMiddleware(socket, 'server/');
 const log = createLogger({ diff: true, collapsed: true });
-const middlewares = [thunk, log, socketIoMiddleware];
+const middlewares = [thunk, log];
 const enhancers = [];
 
 const store = createStore(rootReducer, compose(applyMiddleware(...middlewares), ...enhancers));

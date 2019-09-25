@@ -53,60 +53,52 @@ TowBookingsController.prototype.getTowBookings = async (req, res, next) => {
 // request sent to all other drivers that it is confirmed
 // request sent to user that driver is coming
 
-TowBookingsController.prototype.requestDrivers = async (req, res, next) => {
-  try {
-    console.log('body--\n', req.body)
-    if (!req.body.nearbyDrivers) {
-      return next(errorObj.UnprocessableEntity('nearbyDrivers is empty'));
-    }
-
-    const nearbyDrivers = req.body.nearbyDrivers;
-
-    const io = req.app.io;
-    for (nearbyDriverObj of nearbyDrivers) {
-      if (nearbyDriverObj.socketId) {
-        const nearbyDriverRequest = nearbyDriverObj.driverId + 'towRequest';
-        io.emit(nearbyDriverRequest, {
-          towBooking: req.body.towBooking
-        });
-      } else {
-        console.log(nearbyDriverObj.driverId + 'is not connected');
-      }
-    }
-    return res.status(200).json({
-      success: true
-    });
-  } catch (error) {
-    console.log(error);
-    next(error);
+TowBookingsController.prototype.requestDrivers = (req, res, next) => {
+  if (!req.body.nearbyDrivers) {
+    return next(errorObj.UnprocessableEntity('nearbyDrivers is empty'));
   }
+
+  const nearbyDrivers = req.body.nearbyDrivers;
+
+  const socket = req.app.socket;
+  const socketClient = req.app.socketClient;
+
+  for (nearbyDriverObj of nearbyDrivers) {
+    if (nearbyDriverObj.socketId) {
+      const nearbyDriverRequest = nearbyDriverObj.driverId + ' towRequest';
+      socketClient.on(nearbyDriverRequest, (data) => {
+        console.log('nearbyDriverData', data);
+      })
+      socket.emit(nearbyDriverRequest, {hasAccepted: false});
+    } else {
+      console.log(nearbyDriverObj.driverId + ' is not connected');
+    }
+  }
+  return res.status(200).json({
+    success: true,
+    nearbyDrivers
+  });
 }
 
-TowBookingsController.prototype.setAcceptedDriver = async (req, res, next) => {
-  try {
-    if (!req.body.acceptedDriver) {
-      return next(errorObj.UnprocessableEntity('nearbyDrivers is empty'));
-    }
+TowBookingsController.prototype.setAcceptedDriver = (req, res, next) => {
+  if (!req.body.acceptedDriver) {
+    return next(errorObj.UnprocessableEntity('nearbyDrivers is empty'));
+  }
 
-    const driver = Driver.findById({_id: acceptedDriver})
-    if (!driver) {
-      return next(errorObj.NotFound());
-    }
+  const driver = Driver.findById({_id: acceptedDriver})
+  if (!driver) {
+    return next(errorObj.NotFound());
+  }
 
-    const io = req.app.io;
-    // update booking status with driverId, to accepted
-    if (acceptedDriver.socketId) {
-      // stop emitting 'towRequest'
-      io.emit(acceptedDriver.socketId + 'acceptedTowRequest', {
-        driver,
-        hasAccepted: true
-      });
-    } else {
-      console.log(acceptedDriver.driverId + 'is not connected');
-    }
-  } catch (error) {
-    console.log(error);
-    next(error);
+  // update booking status with driverId, to accepted
+  if (acceptedDriver.socketId) {
+    // stop emitting 'towRequest'
+    socket.emit(acceptedDriver.socketId + 'acceptedTowRequest', {
+      driver,
+      hasAccepted: true
+    });
+  } else {
+    console.log(acceptedDriver.driverId + 'is not connected');
   }
 }
 

@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+const http = require('http').Server(app);
 // const MongoClient = require('mongodb').MongoClient;
 // const uri = "mongodb+srv://trvr:kVU7zc3OVfQ1HIF3@cluster0-te4sk.mongodb.net/test?retryWrites=true&w=majority";
 // const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -10,7 +11,9 @@ const cors = require('cors');
 const helmet = require('helmet')
 const logger = require('morgan');
 
-const io = require('socket.io')();
+const io = require('socket.io')(http);
+
+const socketClient = require('socket.io-client')('http://localhost:5000/');
 
 const port = process.env.PORT || 5000;
 
@@ -70,11 +73,12 @@ const connectors = require('./connectors');
   });
 
   io.listen(
-    app.listen(port, () => console.log(`Server listening on port ${port}!`))
+    http.listen(port, () => console.log(`Server listening on port ${port}!`))
   );
 
+  app.socketClient = socketClient;
   app.io = io.on('connection', (socket) => {
-    console.log('Socket connected' + socket.id);
+    app.socket = socket;
   });
 
   } catch (error) {

@@ -1,5 +1,6 @@
 import Geolocation from 'react-native-geolocation-service';
 import { Alert } from 'react-native';
+import io from 'socket.io-client/dist/socket.io';
 
 import * as actionType from './actions';
 import { calculateFare } from '../utility';
@@ -7,6 +8,14 @@ import { createTowBooking } from './towBookingsCreator';
 
 import axios from 'axios';
 import axiosBackend from '../../axios-backend';
+
+const SOCKET_URL = 'http://localhost:5000/';
+const SOCKET_CONFIG = {
+  timeout: 10000,
+  jsonp: false,
+  transports: ['websocket'],
+  autoConnect: true
+};
 
 const getCurrentLocation = (isPickup) => {
   return (dispatch, store) => {
@@ -72,7 +81,6 @@ function getDistanceMatrix(dispatch, store) {
   axios.get('https://maps.googleapis.com/maps/api/distancematrix/json' + serializedQuery)
     .then(response => {
       if (response.data.status === 'OK') {
-        console.log("response", response);
         const matrix = response.data.rows[0].elements[0];
         dispatch({
           type: actionType.GET_DISTANCE_MATRIX,
@@ -124,25 +132,29 @@ const getNearbyDrivers = (dispatch, store) => {
 };
 
 const requestDrivers = () => {
+  const socket = io(SOCKET_URL, SOCKET_CONFIG);
+
   return (dispatch, store) => {
-    const data = {
+    const reqObj = {
       nearbyDrivers: store().home.nearbyDrivers
     };
 
-    axiosBackend.post('/towBookings/requestDrivers', data)
+    for (nearbyDriverObj of reqObj.nearbyDrivers) {
+      const nearbyDriverRequest = nearbyDriverObj.driverId + ' towRequest';
+      socket.on(nearbyDriverRequest, (data) => {
+        console.log('driverRequestListen', data);
+      });
+
+      const nearbyDriverAcceptedRequest = nearbyDriverObj.driverId + ' acceptedTowRequest';
+      socket.on(nearbyDriverAcceptedRequest, (data) => {
+        console.log('driverAcceptedRequestListen', data);
+      });
+    }
+
+    axiosBackend.post('/towBookings/requestDrivers', reqObj)
       .then(res => {
         if (res.data.success) {
-          console.log('--res', res);
           // listen to socket and if data: setAcceptedDriver
-          // for (nearbyDriverObj in data.nearbyDrivers) {
-          //   const nearbyDriverRequest = nearbyDriverObj.driverId + 'acceptedTowRequest';
-          //   socket.on(nearbyDriverRequest, (data) => {
-          //     if (data.hasAccepted) {
-          //       setAcceptedDriver(dispatch, store, data.driver);
-          //       socket.disconnect();
-          //     }
-          //   });
-          // }
         }
       })
       .catch(error => console.log("towBookings ERROR", error));
@@ -154,7 +166,6 @@ const setAcceptedDriver = (dispatch, store, driver) => {
     type: actionType.SET_ACCEPTED_DRIVER,
     acceptedDriver: driver
   });
-  requestDrivers
 };
 
 // make request to drivers
