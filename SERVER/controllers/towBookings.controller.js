@@ -60,16 +60,14 @@ TowBookingsController.prototype.requestDrivers = (req, res, next) => {
 
   const nearbyDrivers = req.body.nearbyDrivers;
 
+  const io = req.app.io;
   const socket = req.app.socket;
   const socketClient = req.app.socketClient;
 
   for (nearbyDriverObj of nearbyDrivers) {
     if (nearbyDriverObj.socketId) {
       const nearbyDriverRequest = nearbyDriverObj.driverId + ' towRequest';
-      socketClient.on(nearbyDriverRequest, (data) => {
-        console.log('nearbyDriverData', data);
-      })
-      socket.emit(nearbyDriverRequest, {hasAccepted: false});
+      io.emit(nearbyDriverRequest, {hasAccepted: false});
     } else {
       console.log(nearbyDriverObj.driverId + ' is not connected');
     }
