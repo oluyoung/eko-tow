@@ -27,8 +27,6 @@ target 'EkoTow' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-  pod 'RNFirebase', :path => '../node_modules/react-native-firebase/ios'
-
   pod 'react-native-maps', :path => '../node_modules/react-native-maps'
   pod 'react-native-google-maps', :path => '../node_modules/react-native-maps'
   pod 'react-native-google-maps', :path => '../node_modules/react-native-maps'
@@ -47,7 +45,7 @@ target 'EkoTow' do
     # Pods for testing
   end
 
-  use_native_modules!
+  'use_native_modules!'
 end
 
 target 'EkoTow-tvOS' do
@@ -72,7 +70,7 @@ post_install do |installer|
         config.build_settings['CLANG_ENABLE_MODULES'] = 'No'
       end
     end
-    if target.name == "React"
+    if target.name == 'React'
       target.remove_from_project
     end
   end

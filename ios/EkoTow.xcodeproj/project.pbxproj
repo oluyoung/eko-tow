@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* EkoTowTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* EkoTowTests.m */; };
+		088DD81CBC39E659EB2327B3 /* libPods-EkoTow.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AFDE6DCBEB17C5D0AEA2DD3 /* libPods-EkoTow.a */; };
 		0BFC43A7D6F04B1CBD17CABF /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 17DA3C7C4E2E41148C87A88A /* EvilIcons.ttf */; };
 		122D2DBDE91B3EE1E2F75640 /* libPods-EkoTow-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 88E67341751127218BD8831A /* libPods-EkoTow-tvOS.a */; };
 		1283E6DD648C45EB8763DA85 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 17C78FD03C9C4B8F9652BBD0 /* Feather.ttf */; };
@@ -31,13 +32,12 @@
 		999518DD4BA24730ADC0B246 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 293050654220433690B042B5 /* FontAwesome.ttf */; };
 		A2C06C8E23EA4450B8882CE0 /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 48418731FB7B4242A4E2F2C9 /* rubicon-icon-font.ttf */; };
 		A7189DAD556F49E890B92785 /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 475F2B9066DB4A0A8B0A6C82 /* FontAwesome5_Brands.ttf */; };
-		B2A92DF4E7D19F9FE5DA2DFA /* libPods-EkoTowTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DBA042D688FA3544DC157D21 /* libPods-EkoTowTests.a */; };
 		C3FA84EE00F649E4937D8BE4 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 988141EB4C1243D0B00AACEA /* SimpleLineIcons.ttf */; };
 		C4F513331DEC4BA4835C08E1 /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F79E0D740A514A88A10DC792 /* AntDesign.ttf */; };
 		CA0B7F7D28F34622961EF7FF /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 104F3EE3F0A842AA969F4149 /* Entypo.ttf */; };
 		CE92D187851D4EDA945E5B78 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 17942CD6DCA14C4CB89F9F55 /* FontAwesome5_Solid.ttf */; };
+		D516EA67CF19049AC2A591B0 /* libPods-EkoTowTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B81E53EF50603C8A8522C6D /* libPods-EkoTowTests.a */; };
 		E5BB3D6CC8DB40428045F1FB /* Roboto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E063EF7C9B44ADF9190384E /* Roboto.ttf */; };
-		F477624CF06FD6674E197A9E /* libPods-EkoTow.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6607A86B107ECFD738B9000 /* libPods-EkoTow.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,31 +77,31 @@
 		293050654220433690B042B5 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/native-base/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* EkoTow-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "EkoTow-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* EkoTow-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "EkoTow-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4739F781BC6747EE1A249565 /* Pods-EkoTowTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EkoTowTests.debug.xcconfig"; path = "Target Support Files/Pods-EkoTowTests/Pods-EkoTowTests.debug.xcconfig"; sourceTree = "<group>"; };
 		475F2B9066DB4A0A8B0A6C82 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/native-base/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		48418731FB7B4242A4E2F2C9 /* rubicon-icon-font.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "rubicon-icon-font.ttf"; path = "../node_modules/native-base/Fonts/rubicon-icon-font.ttf"; sourceTree = "<group>"; };
 		5EC6259972EC42D686169FD0 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		67B475B06580DF614FF79E60 /* libPods-EkoTow-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EkoTow-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E063EF7C9B44ADF9190384E /* Roboto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto.ttf; path = "../node_modules/native-base/Fonts/Roboto.ttf"; sourceTree = "<group>"; };
 		6FF6B234ACCCB6457AFE49F1 /* Pods-EkoTow-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EkoTow-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-EkoTow-tvOSTests/Pods-EkoTow-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		7AFDE6DCBEB17C5D0AEA2DD3 /* libPods-EkoTow.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EkoTow.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B81E53EF50603C8A8522C6D /* libPods-EkoTowTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EkoTowTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		88E67341751127218BD8831A /* libPods-EkoTow-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EkoTow-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BCA181D30894E2E805D25EA /* Roboto_medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto_medium.ttf; path = "../node_modules/native-base/Fonts/Roboto_medium.ttf"; sourceTree = "<group>"; };
 		8EB6E6D3A2D143498588D3CD /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/native-base/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
-		94787E02988D7E80C0C044A6 /* Pods-EkoTowTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EkoTowTests.release.xcconfig"; path = "Target Support Files/Pods-EkoTowTests/Pods-EkoTowTests.release.xcconfig"; sourceTree = "<group>"; };
 		988141EB4C1243D0B00AACEA /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/native-base/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
-		9970045138E7AD34E4E1158A /* Pods-EkoTow.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EkoTow.release.xcconfig"; path = "Target Support Files/Pods-EkoTow/Pods-EkoTow.release.xcconfig"; sourceTree = "<group>"; };
+		9B13611505DC1CAC9CC5FFE1 /* Pods-EkoTow.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EkoTow.debug.xcconfig"; path = "Target Support Files/Pods-EkoTow/Pods-EkoTow.debug.xcconfig"; sourceTree = "<group>"; };
+		A04C9D6E501834861B6B8BC6 /* Pods-EkoTowTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EkoTowTests.release.xcconfig"; path = "Target Support Files/Pods-EkoTowTests/Pods-EkoTowTests.release.xcconfig"; sourceTree = "<group>"; };
 		A9205FD7E7D440ECB71A4963 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/native-base/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		AE1F1567C9A5489A90E6A446 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/native-base/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		BCB8829CBCC7F3B224416D20 /* Pods-EkoTow-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EkoTow-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-EkoTow-tvOSTests/Pods-EkoTow-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		BFD8F67B91FE4240890D1139 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/native-base/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
 		BFE5DE2D0DF8AE4674C66209 /* Pods-EkoTow-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EkoTow-tvOS.release.xcconfig"; path = "Target Support Files/Pods-EkoTow-tvOS/Pods-EkoTow-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		C33CB33190B5ED899C738C05 /* Pods-EkoTow.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EkoTow.release.xcconfig"; path = "Target Support Files/Pods-EkoTow/Pods-EkoTow.release.xcconfig"; sourceTree = "<group>"; };
 		C36FCC3E660D480A8EB1CB85 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/native-base/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		C457E9F6DD737A59A533EEDB /* Pods-EkoTow-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EkoTow-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-EkoTow-tvOS/Pods-EkoTow-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
-		DBA042D688FA3544DC157D21 /* libPods-EkoTowTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EkoTowTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
-		EF46A02BAB9D5B3021723F0E /* Pods-EkoTow.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EkoTow.debug.xcconfig"; path = "Target Support Files/Pods-EkoTow/Pods-EkoTow.debug.xcconfig"; sourceTree = "<group>"; };
-		F5CE9B7D30259177C3485F1D /* Pods-EkoTowTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EkoTowTests.debug.xcconfig"; path = "Target Support Files/Pods-EkoTowTests/Pods-EkoTowTests.debug.xcconfig"; sourceTree = "<group>"; };
-		F6607A86B107ECFD738B9000 /* libPods-EkoTow.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EkoTow.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F79E0D740A514A88A10DC792 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/native-base/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -110,7 +110,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B2A92DF4E7D19F9FE5DA2DFA /* libPods-EkoTowTests.a in Frameworks */,
+				D516EA67CF19049AC2A591B0 /* libPods-EkoTowTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -118,7 +118,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F477624CF06FD6674E197A9E /* libPods-EkoTow.a in Frameworks */,
+				088DD81CBC39E659EB2327B3 /* libPods-EkoTow.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -161,14 +161,14 @@
 		069CC3C0ACF5CD3BFB4E3D0A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				EF46A02BAB9D5B3021723F0E /* Pods-EkoTow.debug.xcconfig */,
-				9970045138E7AD34E4E1158A /* Pods-EkoTow.release.xcconfig */,
 				C457E9F6DD737A59A533EEDB /* Pods-EkoTow-tvOS.debug.xcconfig */,
 				BFE5DE2D0DF8AE4674C66209 /* Pods-EkoTow-tvOS.release.xcconfig */,
 				BCB8829CBCC7F3B224416D20 /* Pods-EkoTow-tvOSTests.debug.xcconfig */,
 				6FF6B234ACCCB6457AFE49F1 /* Pods-EkoTow-tvOSTests.release.xcconfig */,
-				F5CE9B7D30259177C3485F1D /* Pods-EkoTowTests.debug.xcconfig */,
-				94787E02988D7E80C0C044A6 /* Pods-EkoTowTests.release.xcconfig */,
+				9B13611505DC1CAC9CC5FFE1 /* Pods-EkoTow.debug.xcconfig */,
+				C33CB33190B5ED899C738C05 /* Pods-EkoTow.release.xcconfig */,
+				4739F781BC6747EE1A249565 /* Pods-EkoTowTests.debug.xcconfig */,
+				A04C9D6E501834861B6B8BC6 /* Pods-EkoTowTests.release.xcconfig */,
 			);
 			name = Pods;
 			path = Pods;
@@ -193,10 +193,10 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				F6607A86B107ECFD738B9000 /* libPods-EkoTow.a */,
 				88E67341751127218BD8831A /* libPods-EkoTow-tvOS.a */,
 				67B475B06580DF614FF79E60 /* libPods-EkoTow-tvOSTests.a */,
-				DBA042D688FA3544DC157D21 /* libPods-EkoTowTests.a */,
+				7AFDE6DCBEB17C5D0AEA2DD3 /* libPods-EkoTow.a */,
+				7B81E53EF50603C8A8522C6D /* libPods-EkoTowTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -268,7 +268,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "EkoTowTests" */;
 			buildPhases = (
-				68931D63705ABD28E7E56FF2 /* [CP] Check Pods Manifest.lock */,
+				BB434B837F820489C6FA245D /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
@@ -287,13 +287,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "EkoTow" */;
 			buildPhases = (
-				CAE59B6CED52996483E66B55 /* [CP] Check Pods Manifest.lock */,
+				1F0EC778D606C7A8C102759A /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				6171F8BAE349C41833062853 /* [CP] Copy Pods Resources */,
+				CA6351D2951DDE0652894274 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -455,6 +455,28 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
+		1F0EC778D606C7A8C102759A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-EkoTow-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		27A2BFE93AF1511D25F509F1 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -491,27 +513,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
-		6171F8BAE349C41833062853 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-EkoTow/Pods-EkoTow-resources.sh",
-				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
-				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EkoTow/Pods-EkoTow-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		68931D63705ABD28E7E56FF2 /* [CP] Check Pods Manifest.lock */ = {
+		BB434B837F820489C6FA245D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -533,26 +535,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		CAE59B6CED52996483E66B55 /* [CP] Check Pods Manifest.lock */ = {
+		CA6351D2951DDE0652894274 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
+				"${PODS_ROOT}/Target Support Files/Pods-EkoTow/Pods-EkoTow-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
 			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-EkoTow-checkManifestLockResult.txt",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EkoTow/Pods-EkoTow-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D641EAE25B1B14A4781BB1CF /* [CP] Check Pods Manifest.lock */ = {
@@ -682,7 +682,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F5CE9B7D30259177C3485F1D /* Pods-EkoTowTests.debug.xcconfig */;
+			baseConfigurationReference = 4739F781BC6747EE1A249565 /* Pods-EkoTowTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -705,7 +705,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 94787E02988D7E80C0C044A6 /* Pods-EkoTowTests.release.xcconfig */;
+			baseConfigurationReference = A04C9D6E501834861B6B8BC6 /* Pods-EkoTowTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -725,7 +725,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EF46A02BAB9D5B3021723F0E /* Pods-EkoTow.debug.xcconfig */;
+			baseConfigurationReference = 9B13611505DC1CAC9CC5FFE1 /* Pods-EkoTow.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
@@ -745,7 +745,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9970045138E7AD34E4E1158A /* Pods-EkoTow.release.xcconfig */;
+			baseConfigurationReference = C33CB33190B5ED899C738C05 /* Pods-EkoTow.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;

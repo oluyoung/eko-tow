@@ -30,7 +30,5 @@
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:797176310045:ios:c385b9cee1f9923f</string>
-	<key>DATABASE_URL</key>
-	<string>https://eko-tow.firebaseio.com</string>
 </dict>
 </plist>
