@@ -58,25 +58,10 @@ TowBookingsController.prototype.requestDrivers = (req, res, next) => {
     return next(errorObj.UnprocessableEntity('nearbyDrivers is empty'));
   }
 
-  const nearbyDrivers = req.body.nearbyDrivers;
+  req.app.io.emit('towRequest', { data: req.body.nearbyDrivers });
 
-  const socket = req.app.socket;
-  const socketClient = req.app.socketClient;
-
-  for (nearbyDriverObj of nearbyDrivers) {
-    if (nearbyDriverObj.socketId) {
-      const nearbyDriverRequest = nearbyDriverObj.driverId + ' towRequest';
-      socketClient.on(nearbyDriverRequest, (data) => {
-        console.log('nearbyDriverData', data);
-      })
-      socket.emit(nearbyDriverRequest, {hasAccepted: false});
-    } else {
-      console.log(nearbyDriverObj.driverId + ' is not connected');
-    }
-  }
   return res.status(200).json({
-    success: true,
-    nearbyDrivers
+      success: true,
   });
 }
 

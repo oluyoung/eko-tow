@@ -10,10 +10,9 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const helmet = require('helmet')
 const logger = require('morgan');
-
 const io = require('socket.io')(http);
 
-const socketClient = require('socket.io-client')('http://localhost:5000/');
+// const socketClient = require('socket.io-client')('http://localhost:5000/');
 
 const port = process.env.PORT || 5000;
 
@@ -23,6 +22,10 @@ if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
 
 const routes = require('./routes');
 const connectors = require('./connectors');
+
+const start = () => {
+  http.listen(port, () => console.log(`Server listening on port ${port}!`))
+}
 
 (async () => {
   try {
@@ -72,14 +75,13 @@ const connectors = require('./connectors');
       });
   });
 
-  io.listen(
-    http.listen(port, () => console.log(`Server listening on port ${port}!`))
-  );
+  // Start server
+  start()
 
-  app.socketClient = socketClient;
+// Web socket service
   app.io = io.on('connection', (socket) => {
     app.socket = socket;
-  });
+  })
 
   } catch (error) {
     console.log('Server Init Error---\n', error);

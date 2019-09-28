@@ -63,31 +63,9 @@
       console.log(response)
     });
 
-    socket.on('seen', (data) => {
-      console.log('seen', data)
-    })
-
-    const driverRequest = driverId + 'towRequest';
-    const driverAcceptedRequest = driverId + 'acceptedTowRequest';
-
     // if you become a nearby driver you get inserted into the queue right and so your socket.id is used in the request
-    socket.on(driverRequest, (data) => {
-      console.log('driverRequestListen', data);
-      if (data.towBooking) {
-        console.log('User looking for a tow', data.booking);
-      }
-    });
-
-    // socket.emit(driverAcceptedRequest, {hasAccepted: true}, () => {
-    //   console.log('accepted')
-    // });
-
-    socket.on(driverAcceptedRequest, (data) => {
-      console.log('accepted')
-      if (data.hasAccepted) {
-        console.log('hasAccepted', data);
-        socket.disconnect();
-      }
+    socket.on('towRequest', (data) => {
+      console.log('User looking for a tow', data);
     });
 
     // if driver accepts
