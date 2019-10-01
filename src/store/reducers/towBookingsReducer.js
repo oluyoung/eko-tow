@@ -1,6 +1,7 @@
 import ACTION_HANDLERS from '../handlers/towBookingHandler';
 
 const initState = {
+  newTowBooking: null,
   towBookings: null,
   currentTowBooking: null
 };

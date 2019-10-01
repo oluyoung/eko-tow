@@ -3,7 +3,10 @@ import ACTION_HANDLERS from '../handlers/authHandler';
 const initState = {
   email: '',
   password: '',
-  user: null,
+  username: 'eman',
+  user: {
+    id: '5d7d8305127604647eafb25e'
+  },
   isLogin: true
 };
 

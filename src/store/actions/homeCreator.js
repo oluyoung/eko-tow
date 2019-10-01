@@ -3,8 +3,8 @@ import { Alert } from 'react-native';
 import io from 'socket.io-client/dist/socket.io';
 
 import * as actionType from './actions';
-import { calculateFare } from '../utility';
-import { createTowBooking } from './towBookingsCreator';
+import { calculateFare } from '../helpers';
+import { createTowBooking } from './';
 
 import axios from 'axios';
 import axiosBackend from '../../axios-backend';
@@ -135,37 +135,28 @@ const requestDrivers = () => {
   const socket = io(SOCKET_URL, SOCKET_CONFIG);
 
   return (dispatch, store) => {
-    const reqObj = {
-      nearbyDrivers: store().home.nearbyDrivers
-    };
+    dispatch(createTowBooking());
 
-    for (nearbyDriverObj of reqObj.nearbyDrivers) {
-      const nearbyDriverRequest = nearbyDriverObj.driverId + ' towRequest';
-      socket.on(nearbyDriverRequest, (data) => {
-        console.log('driverRequestListen', data);
-      });
+    setTimeout(() => {
+      const reqObj = {
+        nearbyDrivers: store().home.nearbyDrivers,
+        towBooking: store().towBookings.currentTowBooking
+      };
 
-      const nearbyDriverAcceptedRequest = nearbyDriverObj.driverId + ' acceptedTowRequest';
-      socket.on(nearbyDriverAcceptedRequest, (data) => {
-        console.log('driverAcceptedRequestListen', data);
-      });
-    }
-
-    axiosBackend.post('/towBookings/requestDrivers', reqObj)
+      axiosBackend.post('/towBookings/requestDrivers', reqObj)
       .then(res => {
         if (res.data.success) {
-          // listen to socket and if data: setAcceptedDriver
+          socket.on('acceptedTowRequest', (data) => {
+            console.log('driverAcceptedRequestListen', data);
+            // if data: setAcceptedDriver
+            // dispatch-setAcceptedDriver
+          });
         }
       })
       .catch(error => console.log("towBookings ERROR", error));
-  };
-};
+    }, 1000);
 
-const setAcceptedDriver = (dispatch, store, driver) => {
-  dispatch({
-    type: actionType.SET_ACCEPTED_DRIVER,
-    acceptedDriver: driver
-  });
+  };
 };
 
 // make request to drivers
@@ -195,6 +186,5 @@ export {
   getCarType,
   getTowTruckType,
   makeCancelRequest,
-  requestDrivers,
-  setAcceptedDriver
+  requestDrivers
 };

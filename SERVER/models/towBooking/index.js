@@ -2,8 +2,12 @@ const mongoose = require('mongoose');
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const towBookingSchema = new mongoose.Schema({
-  email: {
+  username: {
     type: String,
+    required: true
+  },
+  userId: {
+    type: ObjectId,
     required: true
   },
   driverId: ObjectId,
@@ -11,11 +15,11 @@ const towBookingSchema = new mongoose.Schema({
     name: String,
     address: String,
     latitude: {
-      type: String,
+      type: Number,
       required: true
     },
-    latitude: {
-      type: String,
+    longitude: {
+      type: Number,
       required: true
     }
   },
@@ -23,11 +27,11 @@ const towBookingSchema = new mongoose.Schema({
     name: String,
     address: String,
     latitude: {
-      type: String,
+      type: Number,
       required: true
     },
-    latitude: {
-      type: String,
+    longitude: {
+      type: Number,
       required: true
     }
   },

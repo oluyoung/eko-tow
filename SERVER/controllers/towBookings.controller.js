@@ -54,27 +54,18 @@ TowBookingsController.prototype.getTowBookings = async (req, res, next) => {
 // request sent to user that driver is coming
 
 TowBookingsController.prototype.requestDrivers = (req, res, next) => {
+  console.log(req.body)
   if (!req.body.nearbyDrivers) {
     return next(errorObj.UnprocessableEntity('nearbyDrivers is empty'));
   }
-
-  const nearbyDrivers = req.body.nearbyDrivers;
-
   const io = req.app.io;
-  const socket = req.app.socket;
-  const socketClient = req.app.socketClient;
+  io.emit('towRequest', {
+    drivers: req.body.nearbyDrivers,
+    // booking
+  });
 
-  for (nearbyDriverObj of nearbyDrivers) {
-    if (nearbyDriverObj.socketId) {
-      const nearbyDriverRequest = nearbyDriverObj.driverId + ' towRequest';
-      io.emit(nearbyDriverRequest, {hasAccepted: false});
-    } else {
-      console.log(nearbyDriverObj.driverId + ' is not connected');
-    }
-  }
   return res.status(200).json({
-    success: true,
-    nearbyDrivers
+    success: true
   });
 }
 
@@ -106,21 +97,15 @@ TowBookingsController.prototype.trackDriver = () => {
 
 TowBookingsController.prototype.createTowBooking = async (req, res, next) => {
   try {
-    const data = {
-      username: req.body.username,
-      driver: req.body.driver,
-      pickupLocation: req.body.pickupLocation,
-      dropoffLocation: req.body.dropoffLocation,
-      fare: req.body.fare
-    };
-
+    const data = req.body
     for (key in data) {
       if (!data[key]) {
         return next(errorObj.UnprocessableEntity(key + ' is missing'));
       }
     }
 
-    const newTowBooking = await TowBooking.create(data);
+    const newTowBooking = new TowBooking({...data});
+    await newTowBooking.save();
 
     if (!newTowBooking) {
       return res.status(500);

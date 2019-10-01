@@ -19,5 +19,6 @@ export {
 } from './authCreator';
 
 export {
+  dispatchNewTowBooking,
   createTowBooking
 } from './towBookingsCreator';
