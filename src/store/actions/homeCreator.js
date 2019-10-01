@@ -133,37 +133,32 @@ const getNearbyDrivers = (dispatch, store) => {
 
 const requestDrivers = () => {
   const socket = io(SOCKET_URL, SOCKET_CONFIG);
-
   return (dispatch, store) => {
     dispatch(createTowBooking());
-
     setTimeout(() => {
       const reqObj = {
         nearbyDrivers: store().home.nearbyDrivers,
         towBooking: store().towBookings.currentTowBooking
       };
-
       axiosBackend.post('/towBookings/requestDrivers', reqObj)
-      .then(res => {
-        if (res.data.success) {
-          socket.on('acceptedTowRequest', (data) => {
-            console.log('driverAcceptedRequestListen', data);
-            // if data: setAcceptedDriver
-            // dispatch-setAcceptedDriver
-          });
-        }
-      })
-      .catch(error => console.log("towBookings ERROR", error));
+        .then(res => {
+          if (res.data.success) {
+            socket.on('acceptedTowRequest', (data) => {
+              console.log('driverAcceptedRequestListen', data);
+              // if data: setAcceptedDriver
+              // dispatch-setAcceptedDriver
+            });
+          }
+        })
+        .catch(error => console.log("towBookings ERROR", error));
     }, 1000);
-
   };
 };
 
-// make request to drivers
 const makeCancelRequest = () => {
-  return dispatch({
+  return {
     type: CANCEL_REQUEST
-  });
+  };
 };
 
 function _dispatchFare(dispatch, store) {

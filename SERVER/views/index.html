@@ -62,33 +62,48 @@
       console.log(response)
     });
 
+    let booking;
+
     // if you become a nearby driver you get inserted into the queue right and so your socket.id is used in the request
     socket.on('towRequest', (data) => {
       const driverExists = data.drivers.find(driver => (driverId === driver.driverId));
       if (driverExists) {
         console.log('User looking for a tow', data);
+        booking = data.towBooking;
       }
     });
 
     socket.on('acceptedTowRequest', (data) => {
       console.log('accepted')
-      // if (data.hasAccepted) {
-      //   console.log('hasAccepted', data);
-      //   socket.disconnect();
-      // }
+      const driverExists = data.drivers.find(driver => (driverId === driver.driverId));
+      if (driverExists) {
+        // show username and route to pickup location
+      }
+      // else: remove from booking list
     });
 
     // if driver accepts
     $('#submit').on('click', function(e) {
-      socket.emit('acceptedTowRequest', {
-        driverId: driverId,
-        // bookingId
-      });
       switch ($('#status').val()) {
+        const requestData = {
+          driverId,
+          bookingId: booking.id
+        }
+
         case 'accept':
+          $.ajax({
+            type: 'POST',
+            url: '/api/v1/towBookings/' + booking.id,
+            dataType: 'json',
+            data: requestData
+          }).done(function (response) {
+            console.log(response)
+          });
           break;
+
         case 'start':
           break;
+
         default:
           return;
       }
