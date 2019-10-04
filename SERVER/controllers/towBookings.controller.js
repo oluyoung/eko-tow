@@ -59,9 +59,10 @@ TowBookingsController.prototype.requestDrivers = (req, res, next) => {
     return next(errorObj.UnprocessableEntity('nearbyDrivers is empty'));
   }
   const io = req.app.io;
+  // don't send the whole object only send what you need, USE A TRANSFORMER
   io.emit('towRequest', {
     drivers: req.body.nearbyDrivers,
-    towBooking: req.body.towBooking
+    towBooking: req.body.towBooking // transformTowRequestTowBooking(r.b.tB)
   });
 
   return res.status(200).json({
@@ -70,22 +71,20 @@ TowBookingsController.prototype.requestDrivers = (req, res, next) => {
 }
 
 TowBookingsController.prototype.setAcceptedDriver = (req, res, next) => {
-  if (!req.body.acceptedDriver) {
-    return next(errorObj.UnprocessableEntity('nearbyDrivers is empty'));
-  }
-
+  // get towBookingId, driverId
+  // update booking status with driverId, to accepted
+  // emit towBookingId & driverId
+  // remove towBooking using the id from  all drivers
   const driver = Driver.findById({_id: acceptedDriver})
   if (!driver) {
     return next(errorObj.NotFound());
   }
 
-  // update booking status with driverId, to accepted
-  if (acceptedDriver.socketId) {
-    // stop emitting 'towRequest'
-    socket.emit(acceptedDriver.socketId + 'acceptedTowRequest', {
-      driver,
-      hasAccepted: true
-    });
+  const io = req.app.io;
+  io.emit('acceptedTowRequest', {
+    driver, // transformAcceptedTowRequestDriver(r.b.tB)
+    towBookingId
+  });
   } else {
     console.log(acceptedDriver.driverId + 'is not connected');
   }
