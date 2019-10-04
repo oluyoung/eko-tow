@@ -55,13 +55,13 @@ TowBookingsController.prototype.getTowBookings = async (req, res, next) => {
 
 TowBookingsController.prototype.requestDrivers = (req, res, next) => {
   console.log(req.body)
-  if (!req.body.nearbyDrivers) {
+  if (!req.body.nearbyDrivers || !req.body.towBooking) {
     return next(errorObj.UnprocessableEntity('nearbyDrivers is empty'));
   }
   const io = req.app.io;
   io.emit('towRequest', {
     drivers: req.body.nearbyDrivers,
-    // booking
+    towBooking: req.body.towBooking
   });
 
   return res.status(200).json({

@@ -180,6 +180,6 @@ export {
   getInputLocation,
   getCarType,
   getTowTruckType,
-  makeCancelRequest,
-  requestDrivers
+  requestDrivers,
+  makeCancelRequest
 };

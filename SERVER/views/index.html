@@ -85,14 +85,13 @@
     // if driver accepts
     $('#submit').on('click', function(e) {
       switch ($('#status').val()) {
-        const requestData = {
-          driverId,
-          bookingId: booking.id
-        }
 
         case 'accept':
+          const requestData = {
+            driverId
+          }
           $.ajax({
-            type: 'POST',
+            type: 'PUT',
             url: '/api/v1/towBookings/' + booking.id,
             dataType: 'json',
             data: requestData
