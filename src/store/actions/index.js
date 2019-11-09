@@ -7,7 +7,7 @@ export {
   handleGetNearbyDrivers,
   requestDrivers,
   setAcceptedDriver
-} from './homeCreator';
+} from './home.creator';
 
 export {
   handleLogin,
@@ -16,9 +16,9 @@ export {
   setPassword,
   switchToSignup,
   switchToLogin
-} from './authCreator';
+} from './auth.creator';
 
 export {
   dispatchNewTowBooking,
   createTowBooking
-} from './towBookingsCreator';
+} from './towBookings.creator';

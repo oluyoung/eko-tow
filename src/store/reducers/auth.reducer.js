@@ -1,4 +1,4 @@
-import ACTION_HANDLERS from '../handlers/authHandler';
+import ACTION_HANDLERS from '../handlers/auth.handler';
 
 const initState = {
   email: '',

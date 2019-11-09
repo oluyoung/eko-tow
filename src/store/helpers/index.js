@@ -3,5 +3,5 @@ export {
 } from './home.helper';
 
 export {
-  setNewTowBooking
-} from './towBookings.helper';
+  setNewTowBooking,
+} from './newBooking.helper';

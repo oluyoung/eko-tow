@@ -1,5 +1,4 @@
 import Geolocation from 'react-native-geolocation-service';
-import { Alert } from 'react-native';
 import io from 'socket.io-client/dist/socket.io';
 
 import * as actionType from './actions';

@@ -1,5 +1,6 @@
 import { updateObject } from '../utility';
-import { initState } from '../reducers/homeReducer';
+import { initState } from '../reducers/home.reducer';
+import { getNewHomeState } from '../helpers';
 
 const handleGetCurrentLocation = (state, action) => {
   const location = {
@@ -9,17 +10,15 @@ const handleGetCurrentLocation = (state, action) => {
   };
   if (action.isPickup) {
     return updateObject(state, {
-      pickupLocation: {
-        ...state.pickupLocation,
+      pickupLocation: updateObject(state.pickupLocation, {
         ...location
-      }
+      })
     });
   }
   return updateObject(state, {
-    dropoffLocation: {
-      ...state.dropoffLocation,
+    dropoffLocation: updateObject(state.dropoffLocation, {
       ...location
-    }
+    })
   });
 };
 
@@ -31,31 +30,21 @@ const handleGetInputLocation = (state, action) => {
   };
 
   if (action.isPickup) {
+    const initState = getNewHomeState();
     return updateObject(state, {
-      pickupLocation: {
-        ...state.pickupLocation,
+      ...initState,
+      pickupLocation: updateObject(initState.pickupLocation, {
         ...location
-      },
-      dropoffLocation: {
-        ...initState.dropoffLocation
-      },
-      routeInfo: {
-        duration: {
-          ...initState.routeInfo.duration
-        },
-        distance: {
-          ...initState.routeInfo.distance
-        }
-      },
-      // carType,
-      // towTruckType
+      }),
+      dropoffLocation: updateObject(initState.dropoffLocation, {
+        ...location
+      })
     });
   }
   return updateObject(state, {
-    dropoffLocation: {
-      ...state.dropoffLocation,
+    dropoffLocation: updateObject(state.dropoffLocation, {
       ...location
-    }
+    })
   });
 };
 
@@ -94,23 +83,7 @@ const handleGetTowTruckType = (state, action) => {
 }
 
 const handleCancelRequest = (state, action) => {
-  return updateObject(state, {
-    ...initState,
-    pickupLocation: {
-      ...initState.pickupLocation
-    },
-    dropoffLocation: {
-      ...initState.dropoffLocation
-    },
-    routeInfo: {
-      duration: {
-        ...initState.routeInfo.duration
-      },
-      distance: {
-        ...initState.routeInfo.distance
-      }
-    }
-  });
+  return getNewHomeState();
 }
 
 const handleGetNearbyDrivers = (state, action) => {
@@ -121,7 +94,6 @@ const handleGetNearbyDrivers = (state, action) => {
 
 const handleSetAcceptedDriver = (state, action) => {
   return updateObject(state, {
-    ...state,
     acceptedDriver: action.acceptedDriver
   });
 }

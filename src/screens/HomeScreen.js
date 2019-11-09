@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import MapView from 'react-native-maps';
 
 import { Container, Header, Left, Button, Icon, Content } from 'native-base';
 

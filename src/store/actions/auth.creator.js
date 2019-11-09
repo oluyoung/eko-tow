@@ -1,18 +1,29 @@
 import * as actionType from './actions';
+import axiosBackend from '../../axios-backend';
 
 export const handleLogin = (email, password) => {
-  return {
-    type: actionType.HANDLE_LOGIN,
-    email,
-    password
+  return (dispatch, store) => {
+    // send to mongodb
+    const reqData = {
+      email: store().auth.email,
+      password: store().auth.password
+    };
+    axiosBackend.post('', reqData);
+      .then()
+      .catch()
   };
 }
 
 export const handleSignup = (email, password) => {
-  return {
-    type: actionType.HANDLE_SIGNUP,
-    email,
-    password
+  return (dispatch, store) => {
+    // send to mongodb
+    const reqData = {
+      email: store().auth.email,
+      password: store().auth.password
+    };
+    axiosBackend.post('', reqData);
+      .then()
+      .catch()
   };
 }
 

@@ -1,6 +1,3 @@
-import Geolocation from 'react-native-geolocation-service';
-import { Alert } from 'react-native';
-
 import * as actionType from './actions';
 import { setNewTowBooking } from '../helpers';
 
@@ -9,10 +6,6 @@ import axios from '../../axios-backend';
 // driver sets canceled, finished
   // FINISH BOOKING
 
-// GET bookingS
-// GET BOOKING: create receipt from booking
-  // REPORT PROBLEM WITH BOOKING
-  // GET RECEIPT FROM BOOKING
 // CANCEL BOOKING
 
 const createTowBooking = () => {

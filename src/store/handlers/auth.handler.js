@@ -1,12 +1,10 @@
 import { updateObject } from '../utility';
 
 function handleLogin(state, action) {
-  // dispatch to fb.auth from here
   return state;
 }
 
 function handleSignup(state, action) {
-  // dispatch to fb.auth from here
   return state;
 }
 
@@ -22,14 +20,16 @@ function handleSwitchToLogin(state, action) {
   return updateObject(state, {
     email: '',
     password: '',
-    isLogin: true});
+    isLogin: true
+  });
 }
 
 function handleSwitchToSignup() {
   return updateObject(state, {
     email: '',
     password: '',
-    isLogin: false});
+    isLogin: false
+  });
 }
 
 const ACTION_HANDLERS = {
