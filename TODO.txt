@@ -1,0 +1,167 @@
+KEEP ORIENTATION ON PORTRAIT
+
+Home screen
+ - allow selection of points on screens and get lat,lng
+ - pickup point
+   - if location allowed then use as default point, else use last known successful pickup location
+   - if location button clicked change pickup point to current location
+ - dropoff point
+ - calculateFare
+
+ - map view
+   - google places search
+
+NAVIGATION
+Drawer nav
+ - profile
+   - default dropoff address
+   - edit account
+   - delete account
+   - sign out
+ - your cars - 1 only for now
+ - orders
+ - payments
+ - settings
+ - legal
+
+OFFLINE
+- if no connectivity, redirect to contact info, integrate with sms capability, but if no internet then no twilio?
+
+[ ] next: socket.io
+
+
+create booking first
+request drivers
+
+one channel Id, the data contains drivers
+
+on 'towRequest'
+  if driver clicks on accept, and request cannot be accepted
+  .send nearbyDriverIds, filter on driver side
+  .send id of request
+
+stateful dynamic requests houses driver requests, and if request accepted then remove from list  
+
+on 'acceptedTowRequest'
+  update booking
+
+if request has been booked return error, tow has been accepted
+
+
+
+--------
+
+USR
+gets accepted drivers info
+
+DRVR
+driver accepts tow request and sends driverId to towController and status changes to accepted
+towBookingId gets emitted to acceptedTowRequest and look for id in store.towRequests and delete it from all drivers
+
+on userCancelledBooking if the request is in the towRequests then remove as well
+
+when drvr accepts towRequest,
+  - usr should get notified by dispatching the driver for the booking
+  - booking gets updated with a status and driverId
+  - screen changes
+  - displays driver's current location and start tracking driver
+  if user cancelled
+    - towBooking status and driver gets updated again
+    - request a tow button is shown again
+  if driver cancelled
+    - towBooking status and driver gets updated again
+    - request a tow button is shown again || or another requestDrivers is made
+    -
+
+===========
+
+Network
+slow/offline
+  - can't reach network, contact call centre for tow
+  - can still sign out
+
+
+Auth
+on signup, driver || user section
+async storage: {
+  user: isLoggedIn, username, email, number
+}
+- first screen, store ONLY user in async storage and request for user object
+- ca
+
+
+// if no nearby drivers, return there are no tows in the area
+  // give number to call
+// create booking REQUEST: status - PENDING
+// change status to confirmed when one driver picks - status - CONFIRMED
+  // only allow pending bookings to be available to be confirmed
+// driver cancels: status - DRIVER_CANCELLED
+// user cancels: status - USER_CANCELLED
+// driver clicks start: status - STARTED
+// driver ends trip: status - COMPLETED
+  // do the needful (take payment; pay driver; )
+
+--bookingRequest
+
+id_
+status
+driverId
+fare
+userId
+pickupLocation: address, name, lat, lng
+dropoffLocation: address, name, lat, lng
+
+driver
+
+id
+fname
+lname
+dob
+id: number, issue date, exp date
+profilepic
+rating
+address: street, city, state
+trucks[]: model, platenumber, color, flatbed/drag, isPrimary
+acctDetails: name, num, bank
+tows[]
+
+--driverLocation
+
+id
+driverId
+location: lat, longitude
+socketId
+
+--tows
+
+id
+userId
+driverId
+pickup: name, addr, lat, lng
+dropoff: name, addr, lat, lng
+fare
+
+--user
+
+id
+firstName
+lastName
+tows[]: refId
+photo?
+vehicles[]: bodytype, model, platenumber, color, isPrimary
+settings:
+paymentCards[]: card_number, exp_date, cvv2
+
+
+// https://stackoverflow.com/questions/41794107/passing-mongo-db-object-db-to-express-middleware
+=======
+
+-------
+- TODO: zoom out to show markers
+https://github.com/react-native-community/react-native-maps#zoom-to-specified-markers
+- TODO: markers have to be draggable as well
+https://github.com/react-native-community/react-native-maps#draggable-markers
+- TODO: use custom images for markers
+https://github.com/react-native-community/react-native-maps#rendering-a-marker-with-a-custom-image
+- ?TODO: take snapshot after order has been done?
+https://github.com/react-native-community/react-native-maps#take-snapshot-of-map

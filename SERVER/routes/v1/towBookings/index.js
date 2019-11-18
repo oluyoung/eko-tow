@@ -5,10 +5,10 @@ const towBookingsControllerObj = new towBookingsController();
 
 router.post('/', towBookingsControllerObj.createTowBooking);
 router.post('/requestDrivers', towBookingsControllerObj.requestDrivers);
-// router.put('/tows/:userId/:towId', towBookingsControllerObj.updateTowBooking);
-// router.put('/tows/:userId/:towId', towBookingsControllerObj.updateTowBookingStatus);
-// router.put('/tows/:userId/:towId', towBookingsControllerObj.completeTowBooking);
-// router.get('/tows/:userOrDriverId', towBookingsControllerObj.getUsersTowBookings);
-// router.get('/tows/:userOrDriverId/:towId', towBookingsControllerObj.getUsersTowBooking);
+// router.put('/tows/:towId', towBookingsControllerObj.updateTowBooking);
+// router.put('/tows/:towId', towBookingsControllerObj.updateTowBookingStatus);
+router.get('/tows/:userOrDriver/:userOrDriverId', towBookingsControllerObj.getTowBookings);
+router.get('/tows/:userOrDriver/:userOrDriverId/:towId', towBookingsControllerObj.getTowBooking);
+router.post('/setAcceptedDriver', towBookingsControllerObj.setAcceptedDriver)
 
 module.exports = router;

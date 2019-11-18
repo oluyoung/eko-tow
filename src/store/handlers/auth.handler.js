@@ -1,12 +1,12 @@
 import { updateObject } from '../utility';
 
-function handleLogin(state, action) {
-  return state;
-}
-
-function handleSignup(state, action) {
-  return state;
-}
+// function handleLogin(state, action) {
+//   return state;
+// }
+//
+// function handleSignup(state, action) {
+//   return state;
+// }
 
 function handleSetEmail(state, action) {
   return updateObject(state, {email: action.email});
@@ -33,8 +33,8 @@ function handleSwitchToSignup() {
 }
 
 const ACTION_HANDLERS = {
-  HANDLE_LOGIN: handleLogin,
-  HANDLE_SIGNUP: handleSignup,
+  // HANDLE_LOGIN: handleLogin,
+  // HANDLE_SIGNUP: handleSignup,
   SET_EMAIL: handleSetEmail,
   SET_PASSWORD: handleSetPassword,
   SWITCH_TO_LOGIN: handleSwitchToLogin,

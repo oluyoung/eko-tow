@@ -15,7 +15,21 @@ function TowBookingsController() {}
 
 TowBookingsController.prototype.getTowBooking = async (req, res, next) => {
   try {
-    const towBooking = await towBookingHelper.getTowBookingAsync({_id: req.params.id });
+    const queryObject = {
+      _id: req.params.towBookingId
+    };
+    switch (req.params.userOrDriver) {
+      case 'user':
+        queryObject.userId = req.params.id;
+        break;
+      case 'driver':
+        queryObject.driverId = req.params.id;
+        break;
+      default:
+        throw 'No valid user type was specified';
+    }
+
+    const towBooking = await towBookingHelper.getTowBookingAsync({queryObject});
 
     if (!towBooking) {
       return next(errorObj.NotFound());
@@ -30,7 +44,19 @@ TowBookingsController.prototype.getTowBooking = async (req, res, next) => {
 
 TowBookingsController.prototype.getTowBookings = async (req, res, next) => {
   try {
-    const towBookings = await towBookingHelper.getTowBookingAsync({_id: req.params.id });
+    const queryObject = {};
+    switch (req.params.userOrDriver) {
+      case 'user':
+        queryObject.userId = req.params.id;
+        break;
+      case 'driver':
+        queryObject.driverId = req.params.id;
+        break;
+      default:
+        throw 'No valid user type was specified';
+    }
+
+    const towBookings = await towBookingHelper.getTowBookingsAsync({queryObject});
 
     if (!towBookings) {
       return next(errorObj.NotFound());
@@ -38,7 +64,7 @@ TowBookingsController.prototype.getTowBookings = async (req, res, next) => {
 
     res.json({
       towBookings,
-      count: towBookings.length
+      count: towBookings.length // handle 'NoTowBookings in frontend'
     });
   } catch (error) {
     console.log(error);
@@ -60,8 +86,10 @@ TowBookingsController.prototype.requestDrivers = (req, res, next) => {
   }
   const io = req.app.io;
   // don't send the whole object only send what you need, USE A TRANSFORMER
+  const driverIds = req.body.nearbyDrivers.map(driverLocation => driverLocation.driverId);
+
   io.emit('towRequest', {
-    drivers: req.body.nearbyDrivers,
+    driverIds,
     towBooking: req.body.towBooking // transformTowRequestTowBooking(r.b.tB)
   });
 
@@ -75,7 +103,7 @@ TowBookingsController.prototype.setAcceptedDriver = (req, res, next) => {
   // update booking status with driverId, to accepted
   // emit towBookingId & driverId
   // remove towBooking using the id from  all drivers
-  const driver = Driver.findById({_id: acceptedDriver})
+  const driver = Driver.findById({_id: req.body.driverId});
   if (!driver) {
     return next(errorObj.NotFound());
   }
@@ -83,11 +111,15 @@ TowBookingsController.prototype.setAcceptedDriver = (req, res, next) => {
   const io = req.app.io;
   io.emit('acceptedTowRequest', {
     driver, // transformAcceptedTowRequestDriver(r.b.tB)
-    towBookingId
+    req.body.towBookingId
   });
-  } else {
-    console.log(acceptedDriver.driverId + 'is not connected');
-  }
+  io.emit('towBookingUnavailable', {
+    req.body.towBookingId
+  });
+
+  return res.status(200).json({
+    success: true
+  });
 }
 
 TowBookingsController.prototype.trackDriver = () => {

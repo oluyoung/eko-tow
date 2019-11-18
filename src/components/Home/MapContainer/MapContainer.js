@@ -5,7 +5,9 @@ import MapView from 'react-native-maps';
 import { View } from 'react-native';
 import styles from './styles';
 
-import { getCurrentLocation, getNearbyDrivers } from '../../../store/actions';
+import { getCurrentLocation, getNearbyDrivers, getDistanceMatrix } from '../../../store/actions';
+
+import NearbyDriversMarkers from './NearbyDriversMarkers';
 
 class MapContainer extends Component {
   state = {
@@ -45,7 +47,9 @@ class MapContainer extends Component {
         null;
 
     if (dropoffRegionExists) {
+      // TODO: zoom out to see both
       this.centerToLocation(this.props.dropoffRegion);
+      this.props.getDistanceMatrix();
     }
 
     const initialRegion = pickupRegionExists ? this.props.pickupRegion : this.state.initialRegion;
@@ -61,13 +65,7 @@ class MapContainer extends Component {
         style={styles.map}>
         {pickupMarker}
         {
-          pickupRegionExists && this.props.nearbyDrivers.map((driverLocation, idx) => {
-            const coordinate = {
-              latitude: driverLocation.coordinate[1],
-              longitude: driverLocation.coordinate[0]
-            };
-            return (<MapView.Marker key={idx} coordinate={coordinate} pinColor='yellow' />);
-          })
+          pickupRegionExists && <NearbyDriversMarkers nearbyDrivers={this.props.nearbyDrivers} />
         }
         {dropoffMarker}
       </MapView>
@@ -78,7 +76,8 @@ class MapContainer extends Component {
 const mapDispatchToProps = dispatch => {
   return {
     getCurrentLocation: () => dispatch(getCurrentLocation(true)),
-    getNearbyDrivers: () => dispatch(getNearbyDrivers())
+    getNearbyDrivers: () => dispatch(getNearbyDrivers()),
+    getDistanceMatrix: () => dispatch(getDistanceMatrix())
   };
 };
 

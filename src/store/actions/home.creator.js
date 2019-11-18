@@ -3,7 +3,7 @@ import io from 'socket.io-client/dist/socket.io';
 
 import * as actionType from './actions';
 import { calculateFare } from '../helpers';
-import { createTowBooking } from './';
+import { createTowBooking, setAcceptedDriver } from './';
 
 import axios from 'axios';
 import axiosBackend from '../../axios-backend';
@@ -29,7 +29,7 @@ const getCurrentLocation = (isPickup) => {
       });
 
       if (isPickup) {
-        getNearbyDrivers(dispatch, store);
+        dispatch(getNearbyDrivers());
       }
     }, error => {
       console.log("GET CURRENT LOCATION ERROR", error);
@@ -53,31 +53,34 @@ const getInputLocation = (isPickup, name, lat, lng) => {
     });
 
     if (isPickup) {
-      getNearbyDrivers(dispatch, store);
+      dispatch(getNearbyDrivers());
     }
     const hasPickupLocation = store().home.pickupLocation.latitude && store().home.pickupLocation.longitude
     const hasDropoffLocation = store().home.dropoffLocation.latitude && store().home.dropoffLocation.longitude
     if (hasPickupLocation && hasDropoffLocation) {
-      getDistanceMatrix(dispatch, store);
+      dispatch(getDistanceMatrix(dispatch, store));
     }
   };
 }
 
-function getDistanceMatrix(dispatch, store) {
-  const queryObj = {
-    origins: store().home.pickupLocation.latitude + ',' + store().home.pickupLocation.longitude,
-    destinations: store().home.dropoffLocation.latitude + ',' + store().home.dropoffLocation.longitude,
-    mode: 'driving',
-    key: 'AIzaSyATCzkPfrrXsKA3BIAv4XGdGU1_NjxmRgM',
-    units: 'imperial'
-  };
+// TODO: remove export here and use in getInputLocation
+// check previous
+export function getDistanceMatrix() {
+  return (dispatch, store) => {
+    const queryObj = {
+      origins: store().home.pickupLocation.latitude + ',' + store().home.pickupLocation.longitude,
+      destinations: store().home.dropoffLocation.latitude + ',' + store().home.dropoffLocation.longitude,
+      mode: 'driving',
+      key: 'AIzaSyATCzkPfrrXsKA3BIAv4XGdGU1_NjxmRgM',
+      units: 'imperial'
+    };
 
-  let serializedQuery = '?';
-  for (let key in queryObj) {
-    serializedQuery += `${key}=${queryObj[key]}&`;
-  }
+    let serializedQuery = '?';
+    for (let key in queryObj) {
+      serializedQuery += `${key}=${queryObj[key]}&`;
+    }
 
-  axios.get('https://maps.googleapis.com/maps/api/distancematrix/json' + serializedQuery)
+    axios.get('https://maps.googleapis.com/maps/api/distancematrix/json' + serializedQuery)
     .then(response => {
       if (response.data.status === 'OK') {
         const matrix = response.data.rows[0].elements[0];
@@ -93,18 +96,17 @@ function getDistanceMatrix(dispatch, store) {
           }
         });
       } else {
-        console.log("GET DISTANCE RESPONSE ERROR")
+        console.log("GET DISTANCE RESPONSE ERROR", response)
       }
     })
     .catch(error => console.log("GET DISTANCE REQUEST ERROR", error));
+  };
 }
 
-const getCarType = (carType) => {
-  return {
-    type: actionType.GET_CAR_TYPE,
-    carType
-  };
-};
+const getCarType = (carType) => ({
+  type: actionType.GET_CAR_TYPE,
+  carType
+});
 
 const getTowTruckType = (towTruckType) => {
   return (dispatch, store) => {
@@ -112,22 +114,24 @@ const getTowTruckType = (towTruckType) => {
       type: actionType.GET_TOW_TRUCK_TYPE,
       towTruckType
     });
-    setTimeout(() => _dispatchFare(dispatch, store), 1000);
+    setTimeout(() => (dispatch(dispatchFare()), 500);
   };
 };
 
 // get nearby drivers: from once pickup location has been entered
 const getNearbyDrivers = (dispatch, store) => {
-  const lat = store().home.pickupLocation.latitude;
-  const lng = store().home.pickupLocation.longitude;
-  axiosBackend.get(`/driversLocations?latitude=${lat}&longitude=${lng}`)
+  return (dispatch, store) => {
+    const lat = store().home.pickupLocation.latitude;
+    const lng = store().home.pickupLocation.longitude;
+    axiosBackend.get(`/driversLocations?latitude=${lat}&longitude=${lng}`)
     .then(response => {
       dispatch({
         type: actionType.GET_NEARBY_DRIVERS,
-        nearbyDrivers: response.data.driversLocations
+        nearbyDrivers: response.data.nearbyDrivers
       });
     })
     .catch(err => console.log("error", err) );
+  };
 };
 
 const requestDrivers = () => {
@@ -137,7 +141,7 @@ const requestDrivers = () => {
     setTimeout(() => {
       const reqObj = {
         nearbyDrivers: store().home.nearbyDrivers,
-        towBooking: store().towBookings.currentTowBooking
+        towBooking: store().newBooking.towBooking
       };
       axiosBackend.post('/towBookings/requestDrivers', reqObj)
         .then(res => {
@@ -145,7 +149,7 @@ const requestDrivers = () => {
             socket.on('acceptedTowRequest', (data) => {
               console.log('driverAcceptedRequestListen', data);
               // if data: setAcceptedDriver
-              // dispatch-setAcceptedDriver
+              dispatch(setAcceptedDriver());
             });
           }
         })
@@ -154,24 +158,24 @@ const requestDrivers = () => {
   };
 };
 
-const makeCancelRequest = () => {
-  return {
-    type: CANCEL_REQUEST
-  };
-};
+const makeCancelRequest = () => ({
+  type: CANCEL_REQUEST
+});
 
-function _dispatchFare(dispatch, store) {
+function dispatchFare() {
   const bases = {
     baseFare: 500,
     timeRate: 0.14,
     distanceRate: 0.97
   };
-  const routeInfo = store().home.routeInfo;
-  const fare = calculateFare(bases, store().home.towTruckType, routeInfo.duration.value, routeInfo.distance.value);
-  dispatch({
-    type: actionType.GET_CALCULATED_FARE,
-    fare
-  });
+  return (dispatch, store) => {
+    const routeInfo = store().home.routeInfo;
+    const fare = calculateFare(bases, store().home.towTruckType, routeInfo.duration.value, routeInfo.distance.value);
+    dispatch({
+      type: actionType.GET_CALCULATED_FARE,
+      fare
+    });
+  };
 }
 
 export {

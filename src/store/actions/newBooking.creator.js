@@ -39,22 +39,20 @@ const updateTowBooking = () => {
         if (res.success) {
           // change screen on this
           dispatch({
-            type: actionType.BOOKING_CREATED,
+            type: actionType.BOOKING_UPDATE,
             currentTowBooking: res.towBooking
           });
         }
       })
-      .catch(error => console.log("CREATE_BOOKING_ERROR", error))
+      .catch(error => console.log("UPDATE_BOOKING_ERROR", error))
   }
 };
 
-const cancelTowBooking = () => {
-
-};
+const cancelTowBooking = () => {};
 
 export {
   createTowBooking,
-  setAcceptedDriver,
+  setAcceptedDriver
   updateTowBooking,
   cancelTowBooking
 };

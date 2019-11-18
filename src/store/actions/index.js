@@ -1,15 +1,4 @@
 export {
-  getCurrentLocation,
-  getInputLocation,
-  getCarType,
-  getTowTruckType,
-  handleCancelRequest,
-  handleGetNearbyDrivers,
-  requestDrivers,
-  setAcceptedDriver
-} from './home.creator';
-
-export {
   handleLogin,
   handleSignup,
   setEmail,
@@ -19,6 +8,24 @@ export {
 } from './auth.creator';
 
 export {
-  dispatchNewTowBooking,
-  createTowBooking
+  getCurrentLocation,
+  getInputLocation,
+  getDistanceMatrix, // TODO: remove
+  getCarType,
+  getTowTruckType,
+  handleCancelRequest,
+  handleGetNearbyDrivers,
+  requestDrivers,
+  setAcceptedDriver
+} from './home.creator';
+
+export {
+  createTowBooking,
+  setAcceptedDriver,
+  updateTowBooking,
+  cancelTowBooking
+} from './newBooking.creator';
+
+export {
+
 } from './towBookings.creator';

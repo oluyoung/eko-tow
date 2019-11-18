@@ -1,29 +1,37 @@
 import { updateObject } from '../utility';
 
-const handleDispatchNewTowBooking = (state, action) => {
+const handleCreateTowBooking = (state, action) => {
   return updateObject(state, {
-    newTowBooking: action.towBooking
+    towBooking: action.towBooking
   });
 };
 
-const handleBookingCreated = (state, action) => {
+const handleUpdateTowBooking = (state, action) => {
   return updateObject(state, {
-    currentTowBooking: action.towBooking
+    towBooking: action.towBooking
   });
 };
-
 
 const handleSetAcceptedDriver = (state, action) => {
   return updateObject(state, {
-    currentTowBooking: updateObject(state.currentTowBooking, {
+    towBooking: updateObject(state.towBooking, {
       driver: action.driver
     })
   });
 };
 
+const handleCancelTowBooking = (state, action) => {
+  return updateObject(state, {
+    towBooking: updateObject(state.towBooking, {
+      status: 'CANCELED'
+    })
+  });
+}
+
 const ACTION_HANDLERS = {
-  DISPATCH_NEW_BOOKING: handleDispatchNewTowBooking,
-  BOOKING_CREATED: handleBookingCreated,
+  CREATE_TOW_BOOKING: handleCreateTowBooking,
+  UPDATE_TOW_BOOKING: handleUpdateTowBooking,
+  CANCEL_TOW_BOOKING: handleCancelTowBooking,
   SET_ACCEPTED_DRIVER: handleSetAcceptedDriver
 };
 

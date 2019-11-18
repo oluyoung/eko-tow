@@ -1,5 +1,6 @@
 export {
-  calculateFare
+  calculateFare,
+  getNewHomeState
 } from './home.helper';
 
 export {

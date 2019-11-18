@@ -24,7 +24,7 @@ const getTowBookingsAsync = (query, options = {}) => new Promise((resolve, rejec
     throw errorObj.UnprocessableEntity('Invalid query');
   }
 
-  let query = TowBooking.find(query);
+  let query = TowBooking.find({...query, status: 'COMPLETED'});
   query.exec((err, towBookings) => {
     if (err) {
       console.error(err);

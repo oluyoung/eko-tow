@@ -9,7 +9,7 @@ DriversLocationsController.prototype.getNearbyDriversLocations = async (req, res
     const points = [parseFloat(req.query.longitude), parseFloat(req.query.latitude)];
 
     DriversLocation.createIndexes({point: 'coordinate'});
-    const driversLocations = await DriversLocation.find({
+    const nearbyDrivers = await DriversLocation.find({
       coordinate: {
         $near: {
           $geometry: {
@@ -21,7 +21,7 @@ DriversLocationsController.prototype.getNearbyDriversLocations = async (req, res
         }
       });
 
-    if (!driversLocations) {
+    if (!nearbyDrivers) {
       return res.status(404).json({
         error: true,
         message: 'No locations found'
@@ -29,7 +29,7 @@ DriversLocationsController.prototype.getNearbyDriversLocations = async (req, res
     }
 
     return res.status(200).json({
-      driversLocations
+      nearbyDrivers
     });
   } catch (error) {
     console.log(error);

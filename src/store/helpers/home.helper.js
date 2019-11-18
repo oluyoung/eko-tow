@@ -43,5 +43,6 @@ function getNewHomeState() {
 }
 
 export {
-  calculateFare
+  calculateFare,
+  getNewHomeState
 }
